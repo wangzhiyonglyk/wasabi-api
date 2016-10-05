@@ -1,0 +1,14 @@
+{
+  "name": "wasabi-api",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wangzhiyong",
+  "license": "ISC",
+  "devDependencies": {
+    "whatwg-fetch": "^1.0.0"
+  }
+}
