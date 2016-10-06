@@ -71,23 +71,31 @@ var ajax=function(settings) {
                 var result = xhr.response;
                 if (result.success != null && result.success != undefined) {//后台传了这个字段
                     if (result.success) {
-                        if (!settings.success && typeof settings.success === "function") {
+                        if (settings.success && typeof settings.success === "function") {
                             settings.success(result);//执行成功
                         }
-
+                        else {
+                            throw  new Error("您没的设置请求成功后的处理函数-success");
+                        }
                     }
                     else {
                         if (!result.message) {//有标准的错误信息
-                            errorHandler(result,result.errCode, result.message);
+                            errorHandler(result, result.errCode, result.message);
                         }
                         else {
-                            errorHandler(result,801, "服务器正常响应，后台业务代码的逻辑报错");
+                            errorHandler(result, 801, "服务器正常响应，后台业务代码的逻辑报错");
 
                         }
                     }
                 }
                 else {//后台没有传这个字段
-                    settings.success(result);//直接认为是成功的
+                    if (settings.success && typeof settings.success === "function") {
+                        settings.success(result);//直接认为是成功的
+                    }
+
+                   else{
+                        throw  new Error("您没的设置请求成功后的处理函数-success");
+                    }
 
                 }
             }
@@ -162,26 +170,7 @@ var ajax=function(settings) {
         }
     }
 
-    /*
-     先保留待稳定后删除 TODO
-     */
-    //$.ajax({
-    //    type: settings.type,
-    //    url: settings.url,
-    //    contentType:settings.contentType,
-    //    dataType: settings.dataType,
-    //    data: settings.data,
-    //    timeout: settings.timeout,
-    //    success: function (result) {
-    //        settings.success(result);
-    //    },
-    //    error: function (XMLHttpRequest, textStatus, errorThrown) {
-    //        settings.error(XMLHttpRequest, textStatus, errorThrown);
-    //    },
-    //    complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
-    //        settings.complete(XMLHttpRequest, status);
-    //    }
-    //})
+
 
 
 }

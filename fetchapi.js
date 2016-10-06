@@ -17,10 +17,12 @@ var fetchapi = {
                 res.json().then(function (result) {
                     if (result.success != null && result.success != undefined) {//后台传了这个字段
                         if (result.success) {
-                            if (!fetchmodel.success && typeof fetchmodel.success === "function") {
+                            if (fetchmodel.success && typeof fetchmodel.success === "function") {
                                 fetchmodel.success(result);//执行成功
                             }
-
+                            else {
+                                throw  new Error("您没的设置请求成功后的处理函数-success");
+                            }
                         }
                         else {
                             if (!result.message) {//有标准的错误信息
@@ -33,7 +35,12 @@ var fetchapi = {
                         }
                     }
                     else {//后台没有传这个字段
-                        fetchmodel.success(result);//直接认为是成功的
+                        if (fetchmodel.success && typeof fetchmodel.success === "function") {
+                            fetchmodel.success(result);//直接认为是成功的,执行成功
+                        }
+                        else {
+                            throw  new Error("您没的设置请求成功后的处理函数-success");
+                        }
 
                     }
 
@@ -62,8 +69,11 @@ var fetchapi = {
                 res.json().then(function (result) {
                     if (result.success != null && result.success != undefined) {//后台传了这个字段
                         if (result.success) {
-                            if (!fetchmodel.success && typeof fetchmodel.success === "function") {
+                            if (fetchmodel.success && typeof fetchmodel.success === "function") {
                                 fetchmodel.success(result);//执行成功
+                            }
+                            else {
+                                throw  new Error("您没的设置请求成功后的处理函数-success");
                             }
 
                         }
@@ -78,8 +88,12 @@ var fetchapi = {
                         }
                     }
                     else {//后台没有传这个字段
-                        fetchmodel.success(result);//直接认为是成功的
-
+                        if (fetchmodel.success && typeof fetchmodel.success === "function") {
+                            fetchmodel.success(result);//直接认为是成功的,执行成功
+                        }
+                        else {
+                            throw  new Error("您没的设置请求成功后的处理函数-success");
+                        }
                     }
 
                 });
@@ -92,6 +106,31 @@ var fetchapi = {
             this.errorHander(fetchmodel, 404, e.message);
         });
     },
+    then:function(fetchmodel) {//原生的请求方式,返回promise对象
+       fetch(
+           fetchmodel.url,
+           {
+               method: fetchmodel.type?fetchmodel.type:"GET",
+               headers: {
+                   "Content-Type": "application/x-www-form-urlencoded"
+               },
+               body:fetchmodel.params? paramFormat.xhrFormat(fetchmodel.params):null,
+           }
+       ).then(function(res){
+           if(fetchmodel.success&& typeof fetchmodel.success === "function")
+           {
+               return fetchmodel.success(res);
+           }
+           else
+           {
+               return res;
+           }
+
+       }).catch(function (e) {
+           this.errorHander(fetchmodel, 404, e.message);
+       });;
+
+   },
     errorHander: function (fetchmodel, errCode, message) {
         if (errCode == 404) {
             console.log("404", "请求地址无效");
