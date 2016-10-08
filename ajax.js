@@ -1,1 +1,181 @@
-var _0x71ed=["\x2E\x2F\x70\x61\x72\x61\x6D\x46\x6F\x72\x6D\x61\x74\x2E\x6A\x73","\x6F\x62\x6A\x65\x63\x74","\x61\x6A\x61\x78\u914D\u7F6E\u65E0\u6548","\x64\x61\x74\x61","\x61\x6A\x61\x78\u7684\x64\x61\x74\x61\u53C2\u6570\u5FC5\u987B\u662F\u5B57\u7B26\x2C\u7A7A\u503C\x2C\u5BF9\u8C61\x2C\x46\x6F\x72\x6D\x44\x61\x74\x61\x2C\u4E0D\u53EF\u4EE5\u4E3A\u6570\u7EC4","\x64\x61\x74\x61\x54\x79\x70\x65","\x6A\x73\x6F\x6E","\x74\x79\x70\x65","\x47\x45\x54","\x61\x73\x79\x6E\x63","\x75\x72\x6C","","\u8BF7\u6C42\u5730\u5740\u4E0D\u80FD\u4E3A\u7A7A","\x63\x6F\x6E\x74\x65\x6E\x74\x54\x79\x70\x65","\x61\x70\x70\x6C\x69\x63\x61\x74\x69\x6F\x6E\x2F\x78\x2D\x77\x77\x77\x2D\x66\x6F\x72\x6D\x2D\x75\x72\x6C\x65\x6E\x63\x6F\x64\x65\x64","\x70\x72\x6F\x67\x72\x65\x73\x73","\x61\x64\x64\x45\x76\x65\x6E\x74\x4C\x69\x73\x74\x65\x6E\x65\x72","\x75\x70\x6C\x6F\x61\x64","\x6C\x6F\x61\x64","\x6C\x6F\x61\x64\x65\x6E\x64","\x74\x69\x6D\x65\x6F\x75\x74","\x65\x72\x72\x6F\x72","\x6F\x70\x65\x6E","\x43\x6F\x6E\x74\x65\x6E\x74\x2D\x54\x79\x70\x65","\x73\x65\x74\x52\x65\x71\x75\x65\x73\x74\x48\x65\x61\x64\x65\x72","\x77\x69\x74\x68\x43\x72\x65\x64\x65\x6E\x74\x69\x61\x6C\x73","\x72\x65\x73\x70\x6F\x6E\x73\x65\x54\x79\x70\x65","\x78\x68\x72\x46\x6F\x72\x6D\x61\x74","\x73\x65\x6E\x64","\x6C\x65\x6E\x67\x74\x68\x43\x6F\x6D\x70\x75\x74\x61\x62\x6C\x65","\x6C\x6F\x61\x64\x65\x64","\x74\x6F\x74\x61\x6C","\x72\x6F\x75\x6E\x64","\x66\x75\x6E\x63\x74\x69\x6F\x6E","\x74\x61\x72\x67\x65\x74","\x72\x65\x61\x64\x79\x53\x74\x61\x74\x65","\x73\x74\x61\x74\x75\x73","\x72\x65\x73\x70\x6F\x6E\x73\x65","\x73\x75\x63\x63\x65\x73\x73","\u60A8\u6CA1\u7684\u8BBE\u7F6E\u8BF7\u6C42\u6210\u529F\u540E\u7684\u5904\u7406\u51FD\u6570\x2D\x73\x75\x63\x63\x65\x73\x73","\x6D\x65\x73\x73\x61\x67\x65","\x65\x72\x72\x43\x6F\x64\x65","\u670D\u52A1\u5668\u6B63\u5E38\u54CD\u5E94\uFF0C\u540E\u53F0\u4E1A\u52A1\u4EE3\u7801\u7684\u903B\u8F91\u62A5\u9519","\x62\x6C\x6F\x62","\x61\x72\x72\x61\x79\x42\x75\x66\x66\x65\x72","\x72\x65\x73\x70\x6F\x6E\x73\x65\x54\x65\x78\x74","\x73\x74\x61\x74\x75\x73\x54\x65\x78\x74","\x63\x6F\x6D\x70\x6C\x65\x74\x65","\u8BF7\u6C42\u8D85\u65F6","\x34\x30\x34","\u8BF7\u6C42\u5730\u5740\u65E0\u6548","\x6C\x6F\x67","\x35\x30\x30","\u670D\u52A1\u5668\u5185\u90E8\u9519\u8BEF","\x65\x78\x70\x6F\x72\x74\x73"];var paramFormat=require(_0x71ed[0]);var ajax=function(_0x126cx3){if(!_0x126cx3||  typeof _0x126cx3!== _0x71ed[1]){throw  new Error(_0x71ed[2]);return};if(_0x126cx3[_0x71ed[3]] instanceof  Array){throw  new Error(_0x71ed[4]);return};if(!_0x126cx3[_0x71ed[5]]){_0x126cx3[_0x71ed[5]]= _0x71ed[6]};if(!_0x126cx3[_0x71ed[7]]){_0x126cx3[_0x71ed[7]]= _0x71ed[8]};if(!_0x126cx3[_0x71ed[9]]){_0x126cx3[_0x71ed[9]]= true};if(_0x126cx3[_0x71ed[10]]== null|| _0x126cx3[_0x71ed[10]]== undefined|| _0x126cx3[_0x71ed[10]]=== _0x71ed[11]){throw  new Error(_0x71ed[12]);return};if(!_0x126cx3[_0x71ed[13]]){_0x126cx3[_0x71ed[13]]= _0x71ed[14]};var _0x126cx4= new XMLHttpRequest();_0x126cx4[_0x71ed[17]][_0x71ed[16]](_0x71ed[15],_0x126cx5,false);_0x126cx4[_0x71ed[16]](_0x71ed[18],_0x126cx8,false);_0x126cx4[_0x71ed[16]](_0x71ed[19],_0x126cxb,false);_0x126cx4[_0x71ed[16]](_0x71ed[20],_0x126cxc,false);_0x126cx4[_0x71ed[16]](_0x71ed[21],_0x126cxd,false);_0x126cx4[_0x71ed[22]](_0x126cx3[_0x71ed[7]],_0x126cx3[_0x71ed[10]],_0x126cx3[_0x71ed[9]]);_0x126cx4[_0x71ed[24]](_0x71ed[23],_0x126cx3[_0x71ed[13]]);_0x126cx4[_0x71ed[25]]= true;_0x126cx4[_0x71ed[26]]= _0x126cx3[_0x71ed[5]];if(!_0x126cx3[_0x71ed[20]]){_0x126cx4[_0x71ed[20]]= _0x126cx3[_0x71ed[20]]};_0x126cx4[_0x71ed[28]](paramFormat[_0x71ed[27]](_0x126cx3[_0x71ed[3]]));function _0x126cx5(_0x126cx6){if(_0x126cx6[_0x71ed[29]]){var _0x126cx7=Math[_0x71ed[32]](_0x126cx6[_0x71ed[30]]* 100/ _0x126cx6[_0x71ed[31]]);if( typeof _0x126cx3[_0x71ed[15]]=== _0x71ed[33]){_0x126cx3[_0x71ed[15]](_0x126cx7)}}}function _0x126cx8(_0x126cx6){var _0x126cx9=(_0x126cx6[_0x71ed[34]]);if(_0x126cx9[_0x71ed[35]]== 4&& ((_0x126cx9[_0x71ed[36]]>= 200&& _0x126cx9[_0x71ed[36]]< 300)|| _0x126cx9[_0x71ed[36]]== 304)){if(_0x126cx3[_0x71ed[5]]== _0x71ed[6]){var _0x126cxa=_0x126cx9[_0x71ed[37]];if(_0x126cxa[_0x71ed[38]]!= null&& _0x126cxa[_0x71ed[38]]!= undefined){if(_0x126cxa[_0x71ed[38]]){if(_0x126cx3[_0x71ed[38]]&&  typeof _0x126cx3[_0x71ed[38]]=== _0x71ed[33]){_0x126cx3[_0x71ed[38]](_0x126cxa)}else {throw  new Error(_0x71ed[39])}}else {if(!_0x126cxa[_0x71ed[40]]){_0x126cxe(_0x126cxa,_0x126cxa[_0x71ed[41]],_0x126cxa[_0x71ed[40]])}else {_0x126cxe(_0x126cxa,801,_0x71ed[42])}}}else {if(_0x126cx3[_0x71ed[38]]&&  typeof _0x126cx3[_0x71ed[38]]=== _0x71ed[33]){_0x126cx3[_0x71ed[38]](_0x126cxa)}else {throw  new Error(_0x71ed[39])}}}else {if(_0x126cx3[_0x71ed[5]]== _0x71ed[43]|| _0x126cx3[_0x71ed[5]]== _0x71ed[44]){_0x126cx3[_0x71ed[38]](_0x126cx9[_0x71ed[37]])}else {try{_0x126cx3[_0x71ed[38]](_0x126cx9[_0x71ed[45]])}catch(e){_0x126cx3[_0x71ed[38]](_0x126cx9[_0x71ed[37]])}}}}else {_0x126cxe(_0x126cx9,_0x126cx9[_0x71ed[36]],_0x126cx9[_0x71ed[46]])}}function _0x126cxb(_0x126cx6){var _0x126cx9=(_0x126cx6[_0x71ed[34]]);if( typeof _0x126cx3[_0x71ed[47]]=== _0x71ed[33]){if(_0x126cx9[_0x71ed[35]]== 4&& ((_0x126cx9[_0x71ed[36]]>= 200&& _0x126cx9[_0x71ed[36]]< 300)|| _0x126cx9[_0x71ed[36]]== 304)){_0x126cx3[_0x71ed[47]](_0x126cx9,_0x71ed[38])}else {if(_0x126cx9[_0x71ed[35]]== 4&& _0x126cx9[_0x71ed[36]]== 0){_0x126cx3[_0x71ed[47]](_0x126cx9,_0x71ed[20])}else {_0x126cx3[_0x71ed[47]](_0x126cx9,_0x71ed[21])}}}}function _0x126cxc(_0x126cx6){var _0x126cx9=(_0x126cx6[_0x71ed[34]]);_0x126cxe(_0x126cx9,1,_0x71ed[48])}function _0x126cxd(_0x126cx6){var _0x126cx9=(_0x126cx6[_0x71ed[34]]);_0x126cxe(_0x126cx9,_0x126cx9[_0x71ed[36]],_0x126cx9[_0x71ed[46]])}function _0x126cxe(_0x126cx9,_0x126cxf,_0x126cx10){if(_0x126cxf== 404){console[_0x71ed[51]](_0x71ed[49],_0x71ed[50])}else {if(_0x126cxf== 500){console[_0x71ed[51]](_0x71ed[52],_0x71ed[53])}else {if(_0x126cxf== 1|| _0x126cxf== 801){console[_0x71ed[51]](_0x126cxf,_0x126cx10)}else {if( typeof _0x126cx3[_0x71ed[21]]=== _0x71ed[33]){_0x126cx3[_0x71ed[21]](_0x126cx9,_0x126cxf,_0x126cx10)}}}}}};module[_0x71ed[54]]= ajax
+/**
+ * Created by wangzhiyong on 2016-09-20.
+ * 后端接口对接
+ * edit by wangzhiyong
+ * date:2016-10-04,将ajax直接改用原生xhr
+ * date;2016-10-05 将rest独立出来,将格式化参数方法独立出来
+ *
+ */
+var paramFormat=require("./paramFormat.js");
+//普通ajax
+var ajax=function(settings) {
+    if (!settings || typeof settings !== "object") {
+        throw new Error("ajax配置无效");
+        return;
+    }
+    if(settings.data instanceof  Array)
+    {
+        throw new Error("ajax的data参数必须是字符,空值,对象,FormData,不可以为数组");
+        return ;
+    }
+    if (!settings.dataType) {//回传的数据格式,默认为json
+        settings.dataType = "json";
+    }
+    if (!settings.type) {//请求方式
+        settings.type = "GET";
+    }
+    if (!settings.async) {
+        settings.async = true;//默认为异步的
+    }
+    if (settings.url == null || settings.url == undefined || settings.url === "") {
+        throw new Error("请求地址不能为空");
+        return;
+    }
+    if (!settings.contentType) {//请求的数据格式,默认值
+        settings.contentType = "application/x-www-form-urlencoded";
+    }
+
+
+    var xhrRequest = new XMLHttpRequest();
+    xhrRequest.upload.addEventListener("progress", progress, false);//上传进度
+    xhrRequest.addEventListener("load", load, false);
+    xhrRequest.addEventListener("loadend", loadEnd, false);
+    xhrRequest.addEventListener("timeout", timeout, false);
+    xhrRequest.addEventListener("error", error, false);
+    xhrRequest.open(settings.type, settings.url, settings.async);
+
+    xhrRequest.setRequestHeader("Content-Type", settings.contentType);//请求的数据格式,
+    xhrRequest.withCredentials=true;//设置允许跨域
+    xhrRequest.responseType = settings.dataType;//回传的数据格式
+
+    if (!settings.timeout) { //设置超时时间
+        xhrRequest.timeout = settings.timeout;//超时时间
+    }
+
+    xhrRequest.send(paramFormat.xhrFormat(settings.data));//先格式化参数
+    //上传进度事件
+    function progress(event) {
+        if (event.lengthComputable) {
+            var percentComplete = Math.round(event.loaded * 100 / event.total);
+            if (typeof  settings.progress === "function") {
+                settings.progress(percentComplete);//执行上传进度事件
+            }
+        }
+    }
+
+    //请求成功
+    function load(event) {
+        var xhr = (event.target);
+        if (xhr.readyState == 4 && ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304)) {//请求成功
+            if (settings.dataType == "json") {
+                //json格式请求
+                var result = xhr.response;
+                if (result.success != null && result.success != undefined) {//后台传了这个字段
+                    if (result.success) {
+                        if (settings.success && typeof settings.success === "function") {
+                            settings.success(result);//执行成功
+                        }
+                        else {
+                            throw  new Error("您没的设置请求成功后的处理函数-success");
+                        }
+                    }
+                    else {
+                        if (!result.message) {//有标准的错误信息
+                            errorHandler(result, result.errCode, result.message);
+                        }
+                        else {
+                            errorHandler(result, 801, "服务器正常响应，后台业务代码的逻辑报错");
+
+                        }
+                    }
+                }
+                else {//后台没有传这个字段
+                    if (settings.success && typeof settings.success === "function") {
+                        settings.success(result);//直接认为是成功的
+                    }
+
+                   else{
+                        throw  new Error("您没的设置请求成功后的处理函数-success");
+                    }
+
+                }
+            }
+            else if (settings.dataType == "blob" || settings.dataType == "arrayBuffer") {//二进制数据
+                settings.success(xhr.response);
+            }
+            else {//其他格式
+                try
+                {
+                    settings.success(xhr.responseText);
+                }
+                catch (e)
+                {//如果没有responseText对象,不能通过if判断,原因不详
+                    settings.success(xhr.response);
+                }
+
+            }
+        }
+        else {//是4xx错误时，并不属于Network error,不会触发error事件
+
+            errorHandler(xhr,xhr.status, xhr.statusText);
+        }
+
+
+    }
+
+    //请求完成
+    function loadEnd(event) {
+        var xhr = (event.target);
+        if (typeof settings.complete === "function") {//设置了完成事件,
+            if (xhr.readyState == 4 && ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304)) {//请求成功
+                settings.complete(xhr, "success");
+            }
+            else if (xhr.readyState == 4 && xhr.status == 0) {//超时
+                settings.complete(xhr, "timeout");
+            }
+            else {//错误
+                settings.complete(xhr, "error");
+            }
+        }
+    }
+
+    //请求超时
+    function timeout(event) {
+        var xhr = (event.target);
+        errorHandler(xhr,1, "请求超时");
+    }
+
+    //请求失败
+    function error(event) {
+        var xhr = (event.target);
+        errorHandler(xhr,xhr.status, xhr.statusText);
+    }
+
+    //通用错误处理函数
+    function errorHandler(xhr,errCode, message) {
+        if (errCode == 404) {
+            console.log("404", "请求地址无效");
+        }
+        else if (errCode == 500) {
+            console.log("500", "服务器内部错误");
+        }
+        else if (errCode ==1||errCode==801) {//请求超时,能用的后台错误
+            console.log(errCode, message);
+        }
+
+        else {//其他错误处理
+
+            if (typeof settings.error === "function") {//设置了错误事件,
+                settings.error(xhr,errCode, message);
+            }
+        }
+    }
+
+
+
+
+}
+
+module.exports=ajax;
+
+

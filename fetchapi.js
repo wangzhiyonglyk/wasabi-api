@@ -1,1 +1,162 @@
-var _0xffa8=["\x2E\x2F\x70\x61\x72\x61\x6D\x46\x6F\x72\x6D\x61\x74\x2E\x6A\x73","\x34\x30\x34","\x6D\x65\x73\x73\x61\x67\x65","\x65\x72\x72\x6F\x72\x48\x61\x6E\x64\x65\x72","\x63\x61\x74\x63\x68","\x6F\x6B","\x73\x75\x63\x63\x65\x73\x73","\x66\x75\x6E\x63\x74\x69\x6F\x6E","\u60A8\u6CA1\u7684\u8BBE\u7F6E\u8BF7\u6C42\u6210\u529F\u540E\u7684\u5904\u7406\u51FD\u6570\x2D\x73\x75\x63\x63\x65\x73\x73","\x65\x72\x72\x43\x6F\x64\x65","\x65\x72\x72\x6F\x72\x48\x61\x6E\x64\x6C\x65\x72","\u670D\u52A1\u5668\u6B63\u5E38\u54CD\u5E94\uFF0C\u540E\u53F0\u4E1A\u52A1\u4EE3\u7801\u7684\u903B\u8F91\u62A5\u9519","\x74\x68\x65\x6E","\x6A\x73\x6F\x6E","\x35\x30\x30","\u670D\u52A1\u5668\u5185\u90E8\u9519\u8BEF","\x75\x72\x6C","\x47\x45\x54","\x50\x4F\x53\x54","\x6C\x61\x6E\x67","\x43\x23","\x61\x70\x70\x6C\x69\x63\x61\x74\x69\x6F\x6E\x2F\x78\x2D\x77\x77\x77\x2D\x66\x6F\x72\x6D\x2D\x75\x72\x6C\x65\x6E\x63\x6F\x64\x65\x64","\x61\x70\x70\x6C\x69\x63\x61\x74\x69\x6F\x6E\x2F\x6A\x73\x6F\x6E\x3B\x63\x68\x61\x72\x73\x65\x74\x3D\x55\x54\x46\x2D\x38","\x70\x61\x72\x61\x6D\x73","\x73\x65\x74\x50\x61\x72\x61\x6D\x73","\x74\x79\x70\x65","\x78\x68\x72\x46\x6F\x72\x6D\x61\x74","\x73\x74\x72\x69\x6E\x67\x69\x66\x79","","\u8BF7\u6C42\u5730\u5740\u65E0\u6548","\x6C\x6F\x67","\x65\x72\x72\x6F\x72","\x65\x78\x70\x6F\x72\x74\x73"];var paramFormat=require(_0xffa8[0]);var fetchapi={get:function(_0x765dx3){fetch(_0x765dx3[_0xffa8[16]],{method:_0xffa8[17]})[_0xffa8[12]](function(_0x765dx5){if(_0x765dx5[_0xffa8[5]]){_0x765dx5[_0xffa8[13]]()[_0xffa8[12]](function(_0x765dx6){if(_0x765dx6[_0xffa8[6]]!= null&& _0x765dx6[_0xffa8[6]]!= undefined){if(_0x765dx6[_0xffa8[6]]){if(_0x765dx3[_0xffa8[6]]&&  typeof _0x765dx3[_0xffa8[6]]=== _0xffa8[7]){_0x765dx3[_0xffa8[6]](_0x765dx6)}else {throw  new Error(_0xffa8[8])}}else {if(!_0x765dx6[_0xffa8[2]]){this[_0xffa8[10]](_0x765dx6,_0x765dx6[_0xffa8[9]],_0x765dx6[_0xffa8[2]])}else {this[_0xffa8[10]](_0x765dx6,801,_0xffa8[11])}}}else {if(_0x765dx3[_0xffa8[6]]&&  typeof _0x765dx3[_0xffa8[6]]=== _0xffa8[7]){_0x765dx3[_0xffa8[6]](_0x765dx6)}else {throw  new Error(_0xffa8[8])}}})}else {fetchapi[_0xffa8[3]](_0x765dx3,_0xffa8[14],_0xffa8[15])}})[_0xffa8[4]](function(_0x765dx4){fetchapi[_0xffa8[3]](_0x765dx3,_0xffa8[1],_0x765dx4[_0xffa8[2]])})},post:function(_0x765dx3){fetch(_0x765dx3[_0xffa8[16]],{method:_0xffa8[18],headers:{"\x43\x6F\x6E\x74\x65\x6E\x74\x2D\x54\x79\x70\x65":_0x765dx3[_0xffa8[19]]== _0xffa8[20]?_0xffa8[21]:_0xffa8[22]},body:this[_0xffa8[24]](_0x765dx3[_0xffa8[19]],_0x765dx3[_0xffa8[23]])})[_0xffa8[12]](function(_0x765dx5){if(_0x765dx5[_0xffa8[5]]){_0x765dx5[_0xffa8[13]]()[_0xffa8[12]](function(_0x765dx6){if(_0x765dx6[_0xffa8[6]]!= null&& _0x765dx6[_0xffa8[6]]!= undefined){if(_0x765dx6[_0xffa8[6]]){if(_0x765dx3[_0xffa8[6]]&&  typeof _0x765dx3[_0xffa8[6]]=== _0xffa8[7]){_0x765dx3[_0xffa8[6]](_0x765dx6)}else {throw  new Error(_0xffa8[8])}}else {if(!_0x765dx6[_0xffa8[2]]){fetchapi[_0xffa8[10]](_0x765dx6,_0x765dx6[_0xffa8[9]],_0x765dx6[_0xffa8[2]])}else {fetchapi[_0xffa8[10]](_0x765dx6,801,_0xffa8[11])}}}else {if(_0x765dx3[_0xffa8[6]]&&  typeof _0x765dx3[_0xffa8[6]]=== _0xffa8[7]){_0x765dx3[_0xffa8[6]](_0x765dx6)}else {throw  new Error(_0xffa8[8])}}})}else {fetchapi[_0xffa8[3]](_0x765dx3,500,_0xffa8[15])}})[_0xffa8[4]](function(_0x765dx4){fetchapi[_0xffa8[3]](_0x765dx3,404,_0x765dx4[_0xffa8[2]])})},then:function(_0x765dx3){fetch(_0x765dx3[_0xffa8[16]],{method:_0x765dx3[_0xffa8[25]]?_0x765dx3[_0xffa8[25]]:_0xffa8[17],headers:{"\x43\x6F\x6E\x74\x65\x6E\x74\x2D\x54\x79\x70\x65":_0xffa8[21]},body:_0x765dx3[_0xffa8[23]]?paramFormat[_0xffa8[26]](_0x765dx3[_0xffa8[23]]):null})[_0xffa8[12]](function(_0x765dx5){if(_0x765dx3[_0xffa8[6]]&&  typeof _0x765dx3[_0xffa8[6]]=== _0xffa8[7]){return _0x765dx3[_0xffa8[6]](_0x765dx5)}else {return _0x765dx5}})[_0xffa8[4]](function(_0x765dx4){fetchapi[_0xffa8[3]](_0x765dx3,404,_0x765dx4[_0xffa8[2]])});;},setParams:function(_0x765dx7,_0x765dx8){if(_0x765dx7== _0xffa8[20]){return paramFormat[_0xffa8[26]](_0x765dx8)}else {return _0x765dx8?JSON[_0xffa8[27]](_0x765dx8):_0xffa8[28]}},errorHander:function(_0x765dx3,_0x765dx9,_0x765dxa){if(_0x765dx9== 404){console[_0xffa8[30]](_0xffa8[1],_0xffa8[29])}else {if(_0x765dx9== 500){console[_0xffa8[30]](_0xffa8[14],_0xffa8[15])}else {if(_0x765dx9== 1|| _0x765dx9== 801){console[_0xffa8[30]](_0x765dx9,_0x765dxa)}else {if( typeof settings[_0xffa8[31]]=== _0xffa8[7]){_0x765dx3[_0xffa8[31]](_0x765dx9,_0x765dxa)}}}}}};module[_0xffa8[32]]= fetchapi
+
+/**
+ * Created by apple on 16/10/5.
+ * 将fetch 方法从框架独立出来
+ */
+
+var paramFormat=require("./paramFormat.js");
+var fetchapi = {
+    get: function (fetchmodel) {
+        fetch(
+            fetchmodel.url,
+            {
+                method: "GET"
+            }
+        ).then(function (res) {
+            if (res.ok) {
+                res.json().then(function (result) {
+                    if (result.success != null && result.success != undefined) {//后台传了这个字段
+                        if (result.success) {
+                            if (fetchmodel.success && typeof fetchmodel.success === "function") {
+                                fetchmodel.success(result);//执行成功
+                            }
+                            else {
+                                throw  new Error("您没的设置请求成功后的处理函数-success");
+                            }
+                        }
+                        else {
+                            if (!result.message) {//有标准的错误信息
+                                this.errorHandler(result, result.errCode, result.message);
+                            }
+                            else {
+                                this.errorHandler(result, 801, "服务器正常响应，后台业务代码的逻辑报错");
+
+                            }
+                        }
+                    }
+                    else {//后台没有传这个字段
+                        if (fetchmodel.success && typeof fetchmodel.success === "function") {
+                            fetchmodel.success(result);//直接认为是成功的,执行成功
+                        }
+                        else {
+                            throw  new Error("您没的设置请求成功后的处理函数-success");
+                        }
+
+                    }
+
+                });
+            }
+            else {
+                fetchapi.errorHander(fetchmodel, "500", "服务器内部错误");
+            }
+
+        }).catch(function (e) {
+            fetchapi.errorHander(fetchmodel, "404", e.message);
+        });
+    },
+    post: function (fetchmodel) {
+        fetch(
+            fetchmodel.url,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": fetchmodel.lang == "C#" ? "application/x-www-form-urlencoded" : "application/json;charset=UTF-8"
+                },
+                body:this.setParams(fetchmodel.lang,fetchmodel.params)
+            }
+        ).then(function (res) {
+            if (res.ok) {
+                res.json().then(function (result) {
+                    if (result.success != null && result.success != undefined) {//后台传了这个字段
+                        if (result.success) {
+                            if (fetchmodel.success && typeof fetchmodel.success === "function") {
+                                fetchmodel.success(result);//执行成功
+                            }
+                            else {
+                                throw  new Error("您没的设置请求成功后的处理函数-success");
+                            }
+
+                        }
+                        else {
+                            if (!result.message) {//有标准的错误信息
+                                fetchapi.errorHandler(result, result.errCode, result.message);
+                            }
+                            else {
+                                fetchapi.errorHandler(result, 801, "服务器正常响应，后台业务代码的逻辑报错");
+
+                            }
+                        }
+                    }
+                    else {//后台没有传这个字段
+                        if (fetchmodel.success && typeof fetchmodel.success === "function") {
+                            fetchmodel.success(result);//直接认为是成功的,执行成功
+                        }
+                        else {
+                            throw  new Error("您没的设置请求成功后的处理函数-success");
+                        }
+                    }
+
+                });
+            }
+            else {
+                fetchapi.errorHander(fetchmodel, 500, "服务器内部错误");
+            }
+
+        }).catch(function (e) {
+            fetchapi.errorHander(fetchmodel, 404, e.message);
+        });
+    },
+    then:function(fetchmodel) {//原生的请求方式,返回promise对象
+       fetch(
+           fetchmodel.url,
+           {
+               method: fetchmodel.type?fetchmodel.type:"POST",
+               headers: {
+                   "Content-Type": "application/x-www-form-urlencoded"
+               },
+               body:fetchmodel.params? paramFormat.xhrFormat(fetchmodel.params):null,
+           }
+       ).then(function(res){
+           if(fetchmodel.success&& typeof fetchmodel.success === "function")
+           {
+               return fetchmodel.success(res);
+           }
+           else
+           {
+               return res;
+           }
+
+       }).catch(function (e) {
+           fetchapi.errorHander(fetchmodel, 404, e.message);
+       });;
+
+   },
+    setParams:function(lang,params) {
+        if(lang=="C#") {
+            return paramFormat.xhrFormat(params);
+        }
+        else {
+            return params ? JSON.stringify(params) : ""
+        }
+    },
+    errorHander: function (fetchmodel, errCode, message) {
+        if (errCode == 404) {
+            console.log("404", "请求地址无效");
+        }
+        else if (errCode == 500) {
+            console.log("500", "服务器内部错误");
+        }
+        else if (errCode == 1 || errCode == 801) {//请求超时,能用的后台错误
+            console.log(errCode, message);
+        }
+
+        else {//其他错误处理
+
+            if (typeof settings.error === "function") {//设置了错误事件,
+                fetchmodel.error(errCode, message);
+            }
+        }
+    }
+
+}
+module .exports=fetchapi;

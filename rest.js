@@ -1,1 +1,229 @@
-var _0x25b4=["\x2E\x2F\x61\x6A\x61\x78\x2E\x6A\x73","","\x73\x74\x72\x69\x6E\x67","\x62\x61\x73\x65\x55\x52\x4C\x20\u5FC5\u987B\u4E3A\u5B57\u7B26\u7C7B\u578B","\x47\x45\x54","\x2F\x47\x65\x74\x4D\x6F\x64\x65\x6C","\x6A\x73\x6F\x6E","\x2F\x47\x65\x74\x3F\x69\x64\x3D","\x50\x4F\x53\x54","\x2F\x41\x64\x64","\x2F\x55\x70\x64\x61\x74\x65","\x2F\x44\x65\x6C\x65\x74\x65","\x70\x61\x72\x61\x6D\x4D\x6F\x64\x65\x6C\x4E\x61\x6D\x65\x20\u5FC5\u987B\u4E3A\u5B57\u7B26\u7C7B\u578B","\x70\x61\x72\x61\x6D\x4D\x6F\x64\x65\x6C","\x6E\x75\x6D\x62\x65\x72","\x3F\x69\x64\x3D","\x70\x61\x72\x61\x6D\x4D\x6F\x64\x65\x6C\x20\u8981\u4E48\u67E5\u8BE2\u683C\u5F0F\u7684\u6570\u7EC4\x2C\u8981\u4E48\u4E3A\x69\x64\u5B57\u6BB5\u6570\u5B57","\x2F","\x2F\x50\x6F\x73\x74\x4C\x69\x73\x74","\x70\x61\x67\x65\x4D\x6F\x64\x65\x6C\x2D\u6761\u4EF6\u53C2\u6570\u683C\u5F0F\u4E0D\u6B63\u786E\x2C\u5FC5\u987B\u662F\u5BF9\u8C61","\x65\x78\x70\x6F\x72\x74\x73"];var ajax=require(_0x25b4[0]);var rest={getModel:function(_0x4bdex3,_0x4bdex4,_0x4bdex5,_0x4bdex6){if(!_0x4bdex6){_0x4bdex6= _0x25b4[1]}else {if( typeof _0x4bdex6!== _0x25b4[2]){throw  new Error(_0x25b4[3]);return}};ajax({type:_0x25b4[4],url:_0x4bdex6+ _0x4bdex3+ _0x25b4[5],dataType:_0x25b4[6],timeout:25000,success:_0x4bdex4,error:_0x4bdex5})},get:function(_0x4bdex3,_0x4bdex7,_0x4bdex4,_0x4bdex5,_0x4bdex6){if(!_0x4bdex6){_0x4bdex6= _0x25b4[1]}else {if( typeof _0x4bdex6!= _0x25b4[2]){throw  new Error(_0x25b4[3]);return}};ajax({type:_0x25b4[4],url:_0x4bdex6+ _0x4bdex3+ _0x25b4[7]+ _0x4bdex7,dataType:_0x25b4[6],timeout:25000,success:_0x4bdex4,error:_0x4bdex5})},add:function(_0x4bdex3,_0x4bdex8,_0x4bdex4,_0x4bdex5,_0x4bdex6){var _0x4bdex9={};if(!_0x4bdex6){_0x4bdex6= _0x25b4[1]}else {if( typeof _0x4bdex6!= _0x25b4[2]){throw  new Error(_0x25b4[3]);return}};if(_0x4bdex8 instanceof  Array){_0x4bdex9= {model:_0x4bdex8}}else {_0x4bdex9= _0x4bdex8};ajax({type:_0x25b4[8],url:_0x4bdex6+ _0x4bdex3+ _0x25b4[9],dataType:_0x25b4[6],timeout:25000,data:_0x4bdex9,success:_0x4bdex4,error:_0x4bdex5})},update:function(_0x4bdex3,_0x4bdex8,_0x4bdex4,_0x4bdex5,_0x4bdex6){if(!_0x4bdex6){_0x4bdex6= _0x25b4[1]}else {if( typeof _0x4bdex6!= _0x25b4[2]){throw  new Error(_0x25b4[3]);return}};if(_0x4bdex8 instanceof  Array){data= {model:_0x4bdex8}}else {data= _0x4bdex8};ajax({type:_0x25b4[8],url:_0x4bdex6+ _0x4bdex3+ _0x25b4[10],dataType:_0x25b4[6],timeout:25000,data:data,success:_0x4bdex4,error:_0x4bdex5})},delete:function(_0x4bdex3,_0x4bdexa,_0x4bdex4,_0x4bdex5,_0x4bdex6,_0x4bdexb){var _0x4bdexc=_0x25b4[8];if(!_0x4bdex6){_0x4bdex6= _0x25b4[1]}else {if( typeof _0x4bdex6!= _0x25b4[2]){throw  new Error(_0x25b4[3]);return}};var _0x4bdexd=_0x4bdex6+ _0x4bdex3+ _0x25b4[11];var _0x4bdex9={};if(_0x4bdexa instanceof  Array){if(_0x4bdexb!= undefined&& _0x4bdexb!= null&& _0x4bdexb!== _0x25b4[1]){if( typeof _0x4bdexb=== _0x25b4[2]){_0x4bdex9[_0x4bdexb]= _0x4bdexa}else {throw  new Error(_0x25b4[12]);return}}else {_0x4bdex9[_0x25b4[13]]= _0x4bdexa}}else {if( typeof (_0x4bdexa* 1)=== _0x25b4[14]){_0x4bdexc= _0x25b4[4];_0x4bdexd= _0x4bdexd+ _0x25b4[15]+ _0x4bdexa;_0x4bdex9= null}else {throw  new Error(_0x25b4[16]);return}};ajax({type:_0x4bdexc,url:_0x4bdexd,dataType:_0x25b4[6],timeout:25000,data:_0x4bdex9,success:_0x4bdex4,error:_0x4bdex5})},postList:function(_0x4bdex3,_0x4bdexa,_0x4bdex4,_0x4bdex5,_0x4bdex6,_0x4bdexb){if(!_0x4bdex6){_0x4bdex6= _0x25b4[1]}else {if( typeof _0x4bdex6!= _0x25b4[2]){throw  new Error(_0x25b4[3]);return}};var _0x4bdex9={};if(_0x4bdexb!= undefined&& _0x4bdexb!= null&& _0x4bdexb!== _0x25b4[1]){_0x4bdex9[_0x4bdexb]= _0x4bdexa}else {_0x4bdex9[_0x25b4[13]]= _0x4bdexa};ajax({type:_0x25b4[8],url:_0x25b4[17]+ _0x4bdex3+ _0x25b4[18],dataType:_0x25b4[6],timeout:25000,data:_0x4bdex9,success:_0x4bdex4,error:_0x4bdex5})},postListPage:function(_0x4bdex3,_0x4bdexe,_0x4bdex4,_0x4bdex5,_0x4bdex6){if(!_0x4bdex6){_0x4bdex6= _0x25b4[1]}else {if( typeof _0x4bdex6!= _0x25b4[2]){throw  new Error(_0x25b4[3]);return}};if(_0x4bdexe instanceof  Object){}else {throw  new Error(_0x25b4[19]);return};ajax({type:_0x25b4[8],url:_0x25b4[17]+ _0x4bdex3+ _0x25b4[18],dataType:_0x25b4[6],timeout:25000,data:_0x4bdexe,success:_0x4bdex4,error:_0x4bdex5})}};module[_0x25b4[20]]= rest
+/**
+ * Created by wangzhiyong on 16/10/5.
+ * 将rest独立出来
+ *
+ */
+
+   var ajax= require("./ajax.js");
+//RSST开发模式
+var rest={
+    //获取模型
+    getModel:function(controllerName,success,error,baseURl) {
+        if(!baseURl)
+        {
+            baseURl="";
+        }
+        else if(typeof baseURl !=="string")
+        {
+            throw  new Error("baseURL 必须为字符类型");
+            return ;
+        }
+
+        ajax({
+            type: "GET",
+            url:  baseURl + controllerName + "/GetModel",
+            dataType: "json",
+            timeout: 25000,
+            success: success,
+            error: error,
+        });
+    },
+    //获取模型实例
+    get:function(controllerName,id,success,error,baseURl) {
+        if(!baseURl)
+        {
+            baseURl="";
+        }
+        else if(typeof baseURl !="string")
+        {
+            throw  new Error("baseURL 必须为字符类型");
+            return ;
+        }
+
+        ajax({
+            type: "GET",
+            url:  baseURl + controllerName + "/Get?id="+id,
+            dataType: "json",
+            timeout: 25000,
+            success: success,
+            error: error
+        });
+    },
+    //新增
+    add:function(controllerName,model,success,error,baseURl) {
+        var data={};
+        if(!baseURl)
+        {
+            baseURl="";
+        }
+        else if(typeof baseURl !="string")
+        {
+            throw  new Error("baseURL 必须为字符类型");
+            return ;
+        }
+
+        if(model instanceof  Array)
+        {//如果是数组，则将其转对象
+            data={model:model};
+        }
+        else
+        {
+            data=model;
+        }
+        ajax({
+            type: "POST",
+            url:  baseURl+ controllerName + "/Add",
+            dataType: "json",
+            timeout: 25000,
+            data:data,
+            success: success,
+            error: error
+        });
+    },
+    //更新
+    update:function(controllerName,model,success,error,baseURl) {
+        if(!baseURl)
+        {
+            baseURl="";
+        }
+        else if(typeof baseURl !="string")
+        {
+            throw  new Error("baseURL 必须为字符类型");
+            return ;
+        }
+
+        if(model instanceof  Array)
+        {//如果是数组，则将其转对象
+            data={model:model};
+        }
+        else
+        {
+            data=model;
+        }
+        ajax({
+            type: "POST",
+            url: baseURl+ controllerName + "/Update",
+            dataType: "json",
+            timeout: 25000,
+            data:data,
+            success: success,
+            error: error
+        });
+    },
+    //删除
+    delete:function(controllerName,paramModel,success,error,baseURl,paramModelName) {
+        var type="POST";
+        if(!baseURl)
+        {
+            baseURl="";
+        }
+        else if(typeof baseURl !="string")
+        {
+            throw  new Error("baseURL 必须为字符类型");
+            return ;
+        }
+
+        var url= baseURl+ controllerName + "/Delete";
+        var data={};//因为要转换为后端能解析的数据格式必须是对象
+        if(paramModel instanceof  Array)
+        {
+            if(paramModelName!=undefined&&paramModelName!=null&&paramModelName!=="")
+            {
+                if(typeof  paramModelName ==="string") {
+                    data[paramModelName] = paramModel;
+                }
+                else
+                {
+                    throw  new Error("paramModelName 必须为字符类型");
+                    return ;
+                }
+            }
+            else {
+                data.paramModel=paramModel;//默认对象名
+            }
+        }
+        else if(typeof  (paramModel*1) ==="number" ){//数值型
+
+            type="GET";
+            url=url+"?id="+paramModel;
+            data=null;
+        }
+        else{
+            throw new Error("paramModel 要么查询格式的数组,要么为id字段数字");
+            return ;
+        }
+
+        ajax({
+            type: type,
+            url: url,
+            dataType: "json",
+            timeout: 25000,
+            data:data,
+            success: success,
+            error: error
+        });
+    },
+    //条件查询
+    postList:function( controllerName,paramModel,success,error,baseURl,paramModelName) {
+        if(!baseURl)
+        {
+            baseURl="";
+        }
+        else if(typeof baseURl !="string")
+        {
+            throw  new Error("baseURL 必须为字符类型");
+            return ;
+        }
+
+        var data={};//因为要转换为后端能解析的数据格式必须是对象
+        if(paramModelName!=undefined&&paramModelName!=null&&paramModelName!=="")
+        {
+            data[paramModelName]=paramModel;
+        }
+        else {
+            data.paramModel=paramModel;//默认对象名
+        }
+        ajax({
+            type: "POST",
+            url: "/" + controllerName + "/PostList",
+            dataType: "json",
+            timeout: 25000,
+            data:data,
+            success: success,
+            error: error
+        });
+    },
+    //分页条件查询
+    postListPage:function(controllerName,pageModel,success,error,baseURl) {
+        if(!baseURl)
+        {
+            baseURl="";
+        }
+        else if(typeof baseURl !="string")
+        {
+            throw  new Error("baseURL 必须为字符类型");
+            return ;
+        }
+
+        if(pageModel instanceof  Object)
+        {
+
+        }
+        else
+        {
+            throw  new Error("pageModel-条件参数格式不正确,必须是对象");
+            return ;
+        }
+        ajax({
+            type: "POST",
+            url: "/" + controllerName + "/PostList",
+            dataType: "json",
+            timeout: 25000,
+            data:pageModel,
+            success: success,
+            error: error
+        });
+    },
+};
+
+module .exports=rest;
