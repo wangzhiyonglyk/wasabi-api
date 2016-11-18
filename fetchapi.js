@@ -2,15 +2,17 @@
 /**
  * Created by apple on 16/10/5.
  * 将fetch 方法从框架独立出来
+ *
  */
 
 var paramFormat=require("./paramFormat.js");
 var fetchapi = {
     get: function (fetchmodel) {
+        fetchmodel.type="GET";
         fetch(
             fetchmodel.url,
             {
-                method: "GET"
+                method:  fetchmodel.type="GET"
             }
         ).then(function (res) {
             if (res.ok) {
@@ -55,14 +57,15 @@ var fetchapi = {
         });
     },
     post: function (fetchmodel) {
+        fetchmodel.type="POST";
         fetch(
             fetchmodel.url,
             {
-                method: "POST",
+                method:   fetchmodel.type,
                 headers: {
-                    "Content-Type": fetchmodel.lang == "C#" ? "application/x-www-form-urlencoded" : "application/json;charset=UTF-8"
+                    "Content-Type":  "application/x-www-form-urlencoded"
                 },
-                body:this.setParams(fetchmodel.lang,fetchmodel.params)
+                body:fetchmodel.params? paramFormat.xhrFormat(fetchmodel.params):null,
             }
         ).then(function (res) {
             if (res.ok) {
@@ -117,28 +120,14 @@ var fetchapi = {
                body:fetchmodel.params? paramFormat.xhrFormat(fetchmodel.params):null,
            }
        ).then(function(res){
-           if(fetchmodel.success&& typeof fetchmodel.success === "function")
-           {
-               return fetchmodel.success(res);
-           }
-           else
-           {
-               return res;
-           }
-
+           if (res.ok) {
+               return res.json();
+           } 
        }).catch(function (e) {
            fetchapi.errorHander(fetchmodel, 404, e.message);
        });;
 
    },
-    setParams:function(lang,params) {
-        if(lang=="C#") {
-            return paramFormat.xhrFormat(params);
-        }
-        else {
-            return params ? JSON.stringify(params) : ""
-        }
-    },
     errorHander: function (fetchmodel, errCode, message) {
         if (errCode == 404) {
             console.log("404", "请求地址无效");

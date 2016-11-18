@@ -4,19 +4,24 @@
  * edit by wangzhiyong
  * date:2016-10-04,将ajax直接改用原生xhr
  * date;2016-10-05 将rest独立出来,将格式化参数方法独立出来
- *
+ ** date;2016-11-05 修改
  */
 var paramFormat=require("./paramFormat.js");
 //普通ajax
 var ajax=function(settings) {
-    if (!settings || typeof settings !== "object") {
-        throw new Error("ajax配置无效");
-        return;
+    if(!XMLHttpRequest)
+    {
+        throw new Error("您的浏览器不支持ajax请求");
+        return false;
+    }
+    if (!settings || !settings instanceof  Object) {
+        throw new Error("ajax配置无效,不能为空,必须为对象");
+        return false;
     }
     if(settings.data instanceof  Array)
     {
         throw new Error("ajax的data参数必须是字符,空值,对象,FormData,不可以为数组");
-        return ;
+        return false ;
     }
     if (!settings.dataType) {//回传的数据格式,默认为json
         settings.dataType = "json";
@@ -31,9 +36,25 @@ var ajax=function(settings) {
         throw new Error("请求地址不能为空");
         return;
     }
+    if(!settings.success) {
+        throw new Error("ajax的success[请求成功函数]不能为空");
+        return false;
+    }
+    else if(typeof settings.success !=="function")
+    {
+        throw new Error("ajax的success[请求成功函数]必须为函数");
+        return false;
+    }
+
+    if(settings.error&&typeof settings.error !=="function") {
+        throw new Error("ajax的error[请求失败函数]必须为函数");
+        return false;
+    }
+
     if (!settings.contentType) {//请求的数据格式,默认值
         settings.contentType = "application/x-www-form-urlencoded";
     }
+
 
 
     var xhrRequest = new XMLHttpRequest();
