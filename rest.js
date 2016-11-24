@@ -195,7 +195,7 @@ var rest={
            var url = settings.corsUrl + settings.controller + "/Delete";
            var data = {};//因为要转换为后端能解析的数据格式必须是对象
            if (settings.paramModel instanceof Array) {
-               if (settings.paramModelName != undefined && settings.paramModelName != null && settings.paramModelName !== "") {//自定义,不为空
+               if (settings.paramModelName) {//自定义,不为空
                    if (typeof  settings.paramModelName === "string") {
                        data[settings.paramModelName] = settings.paramModel;
                    }
@@ -244,25 +244,25 @@ var rest={
             var data={};//因为要转换为后端能解析的数据格式必须是对象
 
             if (!settings.paramModel||(settings.paramModel && settings.paramModel instanceof Array)) {
-
+                if (settings.paramModelName) {//自定义,不为空
+                    if (typeof  settings.paramModelName === "string") {
+                        data[settings.paramModelName] = settings.paramModel;
+                    }
+                    else {
+                        throw  new Error("paramModelName[自定义查询条件参数名称]必须为字符类型");
+                        return false;
+                    }
+                }
+                else {
+                    data.paramModel = settings.paramModel;//默认对象名
+                }
             }
             else {
                 throw  new Error("paramModel[查询条件]格式不正确,要么为空要么为是数组");
                 return false;
             }
 
-            if (settings.paramModelName != undefined && settings.paramModelName != null && settings.paramModelName !== "") {//自定义,不为空
-                if (typeof  settings.paramModelName === "string") {
-                    data[settings.paramModelName] = settings.paramModel;
-                }
-                else {
-                    throw  new Error("paramModelName[自定义查询条件参数名称]必须为字符类型");
-                    return false;
-                }
-            }
-            else {
-                data.paramModel = settings.paramModel;//默认对象名
-            }
+
 
             ajax({
                 type: "POST",
@@ -288,6 +288,15 @@ var rest={
         }
         if(this.validate(settings)) {
             if (settings.pageModel && settings.pageModel instanceof Object) {
+                //不能为空
+                if (!settings.pageModel.paramModel||(settings.pageModel.paramModel && settings.pageModel.paramModel instanceof Array)) {
+                  //是否数组
+                }
+                else {
+                    //可以为空
+                    throw  new Error("pageModel中的paramModel[查询条件]格式不正确,要么为空要么为是数组");
+                    return false;
+                }
 
             }
             else {

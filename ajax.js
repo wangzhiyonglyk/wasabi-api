@@ -7,6 +7,7 @@
  ** date;2016-11-05 修改
  */
 var paramFormat=require("./paramFormat.js");
+
 //普通ajax
 var ajax=function(settings) {
     if(!XMLHttpRequest)
@@ -73,7 +74,7 @@ var ajax=function(settings) {
         xhrRequest.timeout = settings.timeout;//超时时间
     }
 
-    xhrRequest.send(paramFormat.xhrFormat(settings.data));//先格式化参数
+    xhrRequest.send(paramFormat(settings.data));//先格式化参数
     //上传进度事件
     function progress(event) {
         if (event.lengthComputable) {
