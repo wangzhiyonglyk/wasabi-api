@@ -13,7 +13,8 @@ class FetchModel
         this.params=params;
         this.success=success;
         this.error=error;
-        this.type=type;//类型,专门用于then
+        this.type=type;//类型
+        this.contentType="application/x-www-form-urlencoded";//请求数据格式
 
     }
 }

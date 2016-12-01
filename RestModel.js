@@ -1,5 +1,5 @@
 /**
- * Created by apple on 2016/11/6.
+ * Created by wangzhiong on 2016/11/6.
  * 单独为rest设置模型
  */
 
@@ -24,14 +24,3 @@ class RestModel
     }
 }
 module .exports=RestModel;
-
-var api=require("wasabi-api");
-api.rest.page({
-    controller: "User",
-    pageModel:{pageIndex:1,pageSize:20,sortName:"id",sortOrder:"asc",paramModel:[{field:"id",val:3,type:"int",whereType:"equal"}]},
-    success: function(result){
-    },
-    error:  function (XMLHttpRequest, status, message) {
-
-    }
-});

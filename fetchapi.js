@@ -1,12 +1,39 @@
 
 /**
- * Created by apple on 16/10/5.
+ * Created by wangzhiyong on 16/10/5.
  * 将fetch 方法从框架独立出来
  *
  */
 
 var paramFormat=require("./paramFormat.js");
 var fetchapi=function(fetchmodel) {
+    if (!fetchmodel || !fetchmodel instanceof  Object) {
+        throw new Error("fetchmodel配置无效,不能为空,必须为对象");
+        return false;
+    }
+    if(!fetchmodel.success) {
+        throw new Error("fetchmodel的success[请求成功函数]不能为空");
+        return false;
+    }
+    else if(typeof fetchmodel.success !=="function")
+    {
+        throw new Error("fetchmodel的success[请求成功函数]必须为函数");
+        return false;
+    }
+
+    if(fetchmodel.error&&typeof fetchmodel.error !=="function") {
+        throw new Error("fetchmodel的error[请求失败函数]必须为函数");
+        return false;
+    }
+
+    if(fetchmodel.params instanceof  Array)
+    {
+        throw new Error("fetchmodel的params参数必须是字符,空值,对象,FormData,不可以为数组");
+        return false ;
+    }
+    if (!fetchmodel.contentType) {//请求的数据格式,默认值
+        fetchmodel.contentType = "application/x-www-form-urlencoded";
+    }
 
     //错误处理函数
     function errorHander (fetchmodel, errCode, message) {
@@ -28,12 +55,13 @@ var fetchapi=function(fetchmodel) {
         }
     }
 
+
     fetch(
         fetchmodel.url,
         {
             method:   fetchmodel.type,
             headers: {
-                "Content-Type":  "application/x-www-form-urlencoded"
+                "Content-Type":  fetchmodel.contentType
             },
             body:fetchmodel.params? paramFormat(fetchmodel.params):null,
         }

@@ -1,5 +1,5 @@
 /**
- * Created by apple on 16/10/5.
+ * Created by wangzhiyong on 16/10/5.
  */
 //将参数模型中数组转换为对象
 
