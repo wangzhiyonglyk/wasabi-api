@@ -5,8 +5,19 @@
  * date:2016-10-04,将ajax直接改用原生xhr
  * date;2016-10-05 将rest独立出来,将格式化参数方法独立出来
  ** date;2016-11-05 修改
+ ** date;2017-01-14 验证可行性再次修改
+ * 使用方法
+ *     ajax({
+       url:"http:localhost:7499/Admin/Add",
+        type:"post",
+        data:{name:"test",password:"1111",nickname:"dddd"},
+        success:function (result) {
+        console.log(result);
+        },
+    })
  */
 var paramFormat=require("./paramFormat.js");
+var httpCode=require("./httpCode.js");
 
 //普通ajax
 var ajax=function(settings) {
@@ -51,30 +62,62 @@ var ajax=function(settings) {
         throw new Error("ajax的error[请求失败函数]必须为函数");
         return false;
     }
+    if(settings.progress&&typeof settings.progress !=="function") {
+        throw new Error("ajax的progress[上传进度函数]必须为函数");
+        return false;
+    }
+    if(settings.data.constructor===FormData)
+    {//如果是FormData不进行处理，相当于jquery ajax中contentType=false,processData=false,不设置Content-Type
+        settings.contentType==false;
+    }
+    else if(settings.contentType==false)
+    {//为false，是正确值
 
-    if (!settings.contentType) {//请求的数据格式,默认值
+    }
+    else if (settings.contentType==null||settings.contentType==undefined||settings.contentType=="") {//请求的数据格式,默认值
+        //如果为false，是正确值
         settings.contentType = "application/x-www-form-urlencoded";
     }
 
 
 
     var xhrRequest = new XMLHttpRequest();
-    xhrRequest.upload.addEventListener("progress", progress, false);//上传进度
-    xhrRequest.addEventListener("load", load, false);
-    xhrRequest.addEventListener("loadend", loadEnd, false);
-    xhrRequest.addEventListener("timeout", timeout, false);
-    xhrRequest.addEventListener("error", error, false);
-    xhrRequest.open(settings.type, settings.url, settings.async);
+    if(typeof  settings.progress==="function") {//没有设置时不要处理
+        xhrRequest.upload.addEventListener("progress", progress, false);//上传进度
+    }
+    else {
 
-    xhrRequest.setRequestHeader("Content-Type", settings.contentType);//请求的数据格式,
-    xhrRequest.withCredentials=true;//设置允许跨域
+    }
+
+    xhrRequest.addEventListener("load", load, false);///执行成功事件
+    xhrRequest.addEventListener("loadend", loadEnd, false);//执行完成事件
+    xhrRequest.addEventListener("timeout", timeout, false);//超时事件
+    xhrRequest.addEventListener("error", error, false);//执行错误事件
+    xhrRequest.withCredentials=settings.cors?true:false;//表明在进行跨站(cross-site)的访问控制(Access-Control)请求时，是否使用认证信息(例如cookie或授权的header)。 默认为 false。
     xhrRequest.responseType = settings.dataType;//回传的数据格式
 
     if (!settings.timeout) { //设置超时时间
         xhrRequest.timeout = settings.timeout;//超时时间
     }
 
-    xhrRequest.send(paramFormat(settings.data));//先格式化参数
+    xhrRequest.open(settings.type, settings.url, settings.async);
+    if(settings.contentType==false)
+    {//为false,不设置Content-Type
+    }
+    else
+    {
+        xhrRequest.setRequestHeader("Content-Type", settings.contentType);//请求的数据格式,
+    }
+
+
+    if(settings.data)
+    {
+        //格式化中已经处理了FormData的情况
+        xhrRequest.send(paramFormat(settings.data));//先格式化参数
+    }else {
+        xhrRequest.send();
+    }
+
     //上传进度事件
     function progress(event) {
         if (event.lengthComputable) {
@@ -116,7 +159,7 @@ var ajax=function(settings) {
                         settings.success(result);//直接认为是成功的
                     }
 
-                   else{
+                    else {
                         throw  new Error("您没的设置请求成功后的处理函数-success");
                     }
 
@@ -126,18 +169,16 @@ var ajax=function(settings) {
                 settings.success(xhr.response);
             }
             else {//其他格式
-                try
-                {
+                try {
                     settings.success(xhr.responseText);
                 }
-                catch (e)
-                {//如果没有responseText对象,不能通过if判断,原因不详
+                catch (e) {//如果没有responseText对象,不能通过if判断,原因不详
                     settings.success(xhr.response);
                 }
 
             }
         }
-        else {//是4xx错误时，并不属于Network error,不会触发error事件
+        else {//是4xx错误时属于客户端的错误，并不属于Network error,不会触发error事件
 
             errorHandler(xhr,xhr.status, xhr.statusText);
         }
@@ -150,10 +191,11 @@ var ajax=function(settings) {
         var xhr = (event.target);
         if (typeof settings.complete === "function") {//设置了完成事件,
             if (xhr.readyState == 4 && ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304)) {//请求成功
+                //304客户端已经执行了GET，但文件未变化,认为也是成功的
                 settings.complete(xhr, "success");
             }
-            else if (xhr.readyState == 4 && xhr.status == 0) {//超时
-                settings.complete(xhr, "timeout");
+            else if (xhr.readyState == 4 && xhr.status == 0) {//本地响应成功，TODO 暂时不知道如何处理
+
             }
             else {//错误
                 settings.complete(xhr, "error");
@@ -164,7 +206,7 @@ var ajax=function(settings) {
     //请求超时
     function timeout(event) {
         var xhr = (event.target);
-        errorHandler(xhr,1, "请求超时");
+        errorHandler(xhr,802, "请求超时");
     }
 
     //请求失败
@@ -175,22 +217,24 @@ var ajax=function(settings) {
 
     //通用错误处理函数
     function errorHandler(xhr,errCode, message) {
-        if (errCode == 404) {
-            console.log("404", "请求地址无效");
-        }
-        else if (errCode == 500) {
-            console.log("500", "服务器内部错误");
-        }
-        else if (errCode ==1||errCode==801) {//请求超时,能用的后台错误
-            console.log(errCode, message);
-        }
 
-        else {//其他错误处理
+        if (errCode >=300&&errCode<600) {
 
+            console.log(errCode,httpCode[errCode.toString()]);//直接处理http错误代码
+            if (typeof settings.error === "function") {//设置了错误事件,
+                settings.error(xhr,errCode, httpCode[errCode.toString()]);
+            }
+        }
+        else
+        {
+            console.log(errCode,message);
             if (typeof settings.error === "function") {//设置了错误事件,
                 settings.error(xhr,errCode, message);
             }
         }
+
+
+
     }
 
 
