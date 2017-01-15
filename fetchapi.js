@@ -6,8 +6,9 @@
  * 使用方法
  *
  * 1.使用promise
- * fetchapi({
-        url: "http:localhost:7499/Admin/Add",
+ *
+ fetchapi({
+        url: "http://localhost:7499/Admin/Add",
         type: "post",
         data: {name: "test", password: "1111", nickname: "dddd"},
         promise:true,
@@ -17,8 +18,9 @@
     })
 
  *2.使用回调
- * fetchapi({
-        url: "http:localhost:7499/Admin/Add",
+ *
+ fetchapi({
+        url: "http://localhost:7499/Admin/Add",
         type: "post",
         data: {name: "test", password: "1111", nickname: "dddd"},
         success: function (result) {
@@ -38,11 +40,11 @@ var fetchapi=function(fetchmodel) {
         throw new Error("fetchmodel配置无效,不能为空,必须为对象");
         return false;
     }
-    if(!fetchmodel.success) {
-        throw new Error("fetchmodel的success[请求成功函数]不能为空");
+    if(!fetchmodel.success&&!fetchmodel.promise) {
+        throw new Error("promise属性设置false的时候,fetchmodel的success[请求成功函数]不能为空");
         return false;
     }
-    else if(typeof fetchmodel.success !=="function") {
+    else if(!fetchmodel.promise&&typeof fetchmodel.success !=="function") {
         throw new Error("fetchmodel的success[请求成功函数]必须为函数");
         return false;
     }

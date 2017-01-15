@@ -8,7 +8,7 @@
  ** date;2017-01-14 验证可行性再次修改
  * 使用方法
  *     ajax({
-       url:"http:localhost:7499/Admin/Add",
+       url:"http://localhost:7499/Admin/Add",
         type:"post",
         data:{name:"test",password:"1111",nickname:"dddd"},
         success:function (result) {
