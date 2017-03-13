@@ -66,7 +66,7 @@ var ajax=function(settings) {
         throw new Error("ajax的progress[上传进度函数]必须为函数");
         return false;
     }
-    if(settings.data.constructor===FormData)
+    if(settings.data&&settings.data.constructor===FormData)
     {//如果是FormData不进行处理，相当于jquery ajax中contentType=false,processData=false,不设置Content-Type
         settings.contentType==false;
     }
