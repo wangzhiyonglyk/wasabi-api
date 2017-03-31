@@ -7,10 +7,8 @@ exports.paramFormat = require('./paramFormat.js');//格式化参数
 
 //接口
 exports.ajax = require('./ajax.js');//ajax
-exports.fetchapi = require('./fetchapi.js');//fetch
-exports.rest = require('./rest.js');//rest
-
-
+ exports.fetchapi = require('./fetchapi.js');//fetch
+  exports.rest = require('./rest.js');//rest
 
 //数据模型
 exports.AjaxModel = require('./AjaxModel.js');//ajax的配置模型

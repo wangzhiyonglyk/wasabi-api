@@ -72,9 +72,21 @@ var fetchapi=function(fetchmodel) {
             fetchmodel.contentType = "application/x-www-form-urlencoded";
 
     }
-
-
-
+  
+    //如果是get方式，又有参数，则要将参数转换
+  if (fetchmodel.type.toLowerCase() == "get") {
+    //TODO 这里的代码要优化
+    fetchmodel.data = paramFormat(fetchmodel.data);
+    if (fetchmodel.data&&fetchmodel.url.indexOf("?") <= -1) {
+      fetchmodel.url += "?";
+    }
+    if (fetchmodel.url.indexOf("?")>-1&&fetchmodel.url.indexOf("?") == fetchmodel.url.length - 1) {
+      fetchmodel.url += fetchmodel.data;
+    }
+    if (fetchmodel.url.indexOf("?")>-1&&fetchmodel.url.indexOf("?") < fetchmodel.url.length - 1) {
+      fetchmodel.url += "&" + fetchmodel.data;
+    }
+  }
 
     //错误处理函数
     function errorHandler (fetchmodel, errCode, message) {
@@ -114,37 +126,44 @@ var fetchapi=function(fetchmodel) {
         ).then(function(res){
             if (res.ok) {
 
-                    res.json().then(function (result) {
-                        if (result.success != null && result.success != undefined) {//后台传了这个字段
-                            if (result.success) {
-                                if (fetchmodel.success && typeof fetchmodel.success === "function") {
-                                    fetchmodel.success(result);//执行成功
-                                }
-                                else {
-                                    throw  new Error("您没的设置请求成功后的处理函数-success");
-                                }
-
-                            }
-                            else {
-                                if (!result.message) {//有标准的错误信息
-                                    errorHandler(result, result.errCode, result.message);
-                                }
-                                else {
-                                    errorHandler(result, 801, "服务器正常响应，后台业务代码的逻辑报错");
-
-                                }
-                            }
-                        }
-                        else {//后台没有传这个字段
-                            if (fetchmodel.success && typeof fetchmodel.success === "function") {
-                                fetchmodel.success(result);//直接认为是成功的,执行成功
-                            }
-                            else {
-                                throw  new Error("您没的设置请求成功后的处理函数-success");
-                            }
-                        }
-
-                    });
+                   try
+                   {
+                     res.json().then(function (result) {
+                       if (result.success != null && result.success != undefined) {//后台传了这个字段
+                         if (result.success) {
+                           if (fetchmodel.success && typeof fetchmodel.success === "function") {
+                             fetchmodel.success(result);//执行成功
+                           }
+                           else {
+                             throw  new Error("您没的设置请求成功后的处理函数-success");
+                           }
+        
+                         }
+                         else {
+                           if (!result.message) {//有标准的错误信息
+                             errorHandler(result, result.errCode, result.message);
+                           }
+                           else {
+                             errorHandler(result, 801, "服务器正常响应，后台业务代码的逻辑报错");
+          
+                           }
+                         }
+                       }
+                       else {//后台没有传这个字段
+                         if (fetchmodel.success && typeof fetchmodel.success === "function") {
+                           fetchmodel.success(result);//直接认为是成功的,执行成功
+                         }
+                         else {
+                           throw  new Error("您没的设置请求成功后的处理函数-success");
+                         }
+                       }
+    
+                     });
+                   }
+                    catch (e)
+                    {
+                      errorHandler(fetchmodel,802,e.message);
+                    }
 
 
             }
