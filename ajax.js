@@ -6,6 +6,7 @@
  * date;2016-10-05 将rest独立出来,将格式化参数方法独立出来
  ** date;2016-11-05 修改
  ** date;2017-01-14 验证可行性再次修改
+ * date:2017-03-31 解决后端json格式错误时，get传参数的bug
  * 使用方法
  *     ajax({
        url:"http://localhost:7499/Admin/Add",
@@ -54,7 +55,7 @@ var ajax = function (settings) {
     throw new Error("ajax的success[请求成功函数]必须为函数");
     return false;
   }
-  
+
   if (settings.error && typeof settings.error !== "function") {
     throw new Error("ajax的error[请求失败函数]必须为函数");
     return false;
@@ -67,33 +68,33 @@ var ajax = function (settings) {
     settings.contentType == false;
   }
   else if (settings.contentType == false) {//为false，是正确值
-    
+
   }
   else if (settings.contentType == null || settings.contentType == undefined || settings.contentType == "") {//请求的数据格式,默认值
     //如果为false，是正确值
     settings.contentType = "application/x-www-form-urlencoded";
   }
-  
+
   //格式化中已经处理了FormData的情况
   settings.data = paramFormat(settings.data);
-  
+
   if(settings.type.toLowerCase()=="get")
   {
     if (settings.data&&settings.url.indexOf("?") <= -1) {
       settings.url += "?";
     }
-    if (settings.url.indexOf("?") >-1&&settings.url.indexOf("?") == settings.url.length - 1) {
+    if (settings.data&&settings.url.indexOf("?") >-1&&settings.url.indexOf("?") == settings.url.length - 1) {
       settings.url += settings.data;
     }
-    else if (settings.url.indexOf("?")>-1&&settings.url.indexOf("?") < settings.url.length - 1) {
+    else if (settings.data&&settings.url.indexOf("?")>-1&&settings.url.indexOf("?") < settings.url.length - 1) {
       settings.url += "&" + settings.data;
     }
   }
-  
-  
+
+
   var xhrRequest = new XMLHttpRequest();
-  
-  
+
+
   xhrRequest.open(settings.type, settings.url, settings.async);
   xhrRequest.addEventListener("load", load, false);///执行成功事件
   xhrRequest.addEventListener("loadend", loadEnd, false);//执行完成事件
@@ -103,16 +104,16 @@ var ajax = function (settings) {
     xhrRequest.upload.addEventListener("progress", progress, false);//上传进度
   }
   else {
-    
+
   }
   xhrRequest.withCredentials = settings.cors ? true : false;//表明在进行跨站(cross-site)的访问控制(Access-Control)请求时，是否使用认证信息(例如cookie或授权的header)。 默认为 false。
   xhrRequest.responseType = settings.dataType;//回传的数据格式
-  
+
   if (!settings.timeout) { //设置超时时间
     xhrRequest.timeout = settings.timeout;//超时时间
   }
-  
-  
+
+
   if (settings.contentType == false) {//为false,不设置Content-Type
   }
   else {
@@ -129,7 +130,7 @@ var ajax = function (settings) {
   else {
     xhrRequest.send();
   }
-  
+
   //上传进度事件
   function progress(event) {
     if (event.lengthComputable) {
@@ -139,7 +140,7 @@ var ajax = function (settings) {
       }
     }
   }
-  
+
   //请求成功
   function load(event) {
     var xhr = (event.target);
@@ -148,8 +149,8 @@ var ajax = function (settings) {
         //json格式请求
         var result = xhr.response;
         if (result) {
-          
-          
+
+
           if (result.success != null && result.success != undefined) {//后台传了这个字段
             if (result.success) {
               if (settings.success && typeof settings.success === "function") {
@@ -160,12 +161,12 @@ var ajax = function (settings) {
               }
             }
             else {
-              if (!result.message) {//有标准的错误信息
+              if (result.message) {//有标准的错误信息
                 errorHandler(result, result.errCode, result.message);
               }
               else {
                 errorHandler(result, 801, "服务器正常响应，后台业务代码的逻辑报错");
-                
+
               }
             }
           }
@@ -173,11 +174,11 @@ var ajax = function (settings) {
             if (settings.success && typeof settings.success === "function") {
               settings.success(result);//直接认为是成功的
             }
-            
+
             else {
               throw  new Error("您没的设置请求成功后的处理函数-success");
             }
-            
+
           }
         }
         else {
@@ -194,17 +195,17 @@ var ajax = function (settings) {
         catch (e) {//如果没有responseText对象,不能通过if判断,原因不详
           settings.success(xhr.response);
         }
-        
+
       }
     }
     else {//是4xx错误时属于客户端的错误，并不属于Network error,不会触发error事件
-      
+
       errorHandler(xhr, xhr.status, xhr.statusText);
     }
-    
-    
+
+
   }
-  
+
   //请求完成
   function loadEnd(event) {
     var xhr = (event.target);
@@ -214,31 +215,31 @@ var ajax = function (settings) {
         settings.complete(xhr, "success");
       }
       else if (xhr.readyState == 4 && xhr.status == 0) {//本地响应成功，TODO 暂时不知道如何处理
-        
+
       }
       else {//错误
         settings.complete(xhr, "error");
       }
     }
   }
-  
+
   //请求超时
   function timeout(event) {
     var xhr = (event.target);
     errorHandler(xhr, 802, "请求超时");
   }
-  
+
   //请求失败
   function error(event) {
     var xhr = (event.target);
     errorHandler(xhr, xhr.status, xhr.statusText);
   }
-  
+
   //通用错误处理函数
   function errorHandler(xhr, errCode, message) {
-    
+
     if (errCode >= 300 && errCode < 600) {
-      
+
       console.log(errCode, httpCode[errCode.toString()]);//直接处理http错误代码
       if (typeof settings.error === "function") {//设置了错误事件,
         settings.error(xhr, errCode, httpCode[errCode.toString()]);
@@ -250,11 +251,11 @@ var ajax = function (settings) {
         settings.error(xhr, errCode, message);
       }
     }
-    
-    
+
+
   }
-  
-  
+
+
 }
 
 module.exports = ajax;

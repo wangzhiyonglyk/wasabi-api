@@ -80,10 +80,10 @@ var fetchapi=function(fetchmodel) {
     if (fetchmodel.data&&fetchmodel.url.indexOf("?") <= -1) {
       fetchmodel.url += "?";
     }
-    if (fetchmodel.url.indexOf("?")>-1&&fetchmodel.url.indexOf("?") == fetchmodel.url.length - 1) {
+    if (fetchmodel.data&&fetchmodel.url.indexOf("?")>-1&&fetchmodel.url.indexOf("?") == fetchmodel.url.length - 1) {
       fetchmodel.url += fetchmodel.data;
     }
-    if (fetchmodel.url.indexOf("?")>-1&&fetchmodel.url.indexOf("?") < fetchmodel.url.length - 1) {
+   else if (fetchmodel.data&& fetchmodel.url.indexOf("?")>-1&&fetchmodel.url.indexOf("?") < fetchmodel.url.length - 1) {
       fetchmodel.url += "&" + fetchmodel.data;
     }
   }
@@ -140,7 +140,7 @@ var fetchapi=function(fetchmodel) {
         
                          }
                          else {
-                           if (!result.message) {//有标准的错误信息
+                           if (result.message) {//有标准的错误信息
                              errorHandler(result, result.errCode, result.message);
                            }
                            else {
