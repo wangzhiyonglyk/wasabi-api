@@ -7,6 +7,7 @@
  ** date;2016-11-05 验证可行性修改
  ** date;2017-01-14 验证可行性再次修改
  * date:207-04-18 修改在IE8，与360中的bug
+ * date:207-06-16 修改asnyc参数的配置
  * 使用方法
  *     ajax({
        url:"http://localhost:7499/Admin/Add",
@@ -86,7 +87,7 @@ var ajax = function (settings) {
     if (!settings.type) {//请求方式
       settings.type = "GET";
     }
-    if (!settings.async) {
+    if (settings.async!==false) {
       settings.async = true;//默认为异步的
     }
     if (settings.url == null || settings.url == undefined || settings.url === "") {
