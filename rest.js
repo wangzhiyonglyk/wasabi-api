@@ -8,14 +8,14 @@
 //RSST开发模式
 var rest={
     validate:function(settings,type) {
-        if (!settings || !settings instanceof  Object) {
+        if (!settings || !(settings instanceof  Object)) {
             throw new Error("ajax配置无效,不能为空,必须为对象");
-            return  false;
+          
         }
 
         if(!settings.controller) {//控制器为空
             throw new Error("ajax的controller[控制器]不能为空");
-            return  false;
+          
         }
 
         if(!settings.corsUrl) {//允许为空,则为当前域名
@@ -24,21 +24,21 @@ var rest={
         else if(typeof settings.corsUrl !=="string")
         {
             throw  new Error("corsUrl 必须为字符类型");
-            return  false;
+          
         }
         if(!settings.success) {
             throw new Error("ajax的success[请求成功函数]不能为空");
-            return  false;
+            
         }
         else if(typeof settings.success !=="function")
         {
             throw new Error("ajax的success[请求成功函数]必须为函数");
-            return  false;
+         
         }
 
         if(settings.error&&typeof settings.error !=="function") {
             throw new Error("ajax的error[请求失败函数]必须为函数");
-            return  false;
+          
         }
 
         if(!type) {
@@ -48,19 +48,19 @@ var rest={
                     if(settings.id==null||settings.id==undefined)
                     {
                         throw  new Error("id参数不能空");
-                        return  false;
+                       
                     }
                     else if(typeof settings.id !=="number")
                     {
                         throw  new Error("id必须为数字");
-                        return  false;
+                        
                     }
                     break;
                 case "add"://新增或者修改
                     if(settings.model ==null||settings.model==undefined)
                     {
                         throw new Error("数据模型不能为空");
-                        return  false;
+                      
                     }
                     break;
             }
@@ -78,10 +78,11 @@ var rest={
         }
         if(this.validate(settings)) {
             ajax({
-                type: "GET",
+                type: settings.type?settings.type:"GET",
                 url: settings.corsUrl + settings.controller + "/GetModel",
                 async:settings.async,
                 dataType: "json",
+                headers:settings.headers,
                 timeout: settings.timeout?settings.timeout:25000,
                 success: settings.success,
                 error: settings.error,
@@ -100,10 +101,11 @@ var rest={
        if(this.validate(settings,"get"))
        {
            ajax({
-               type: "GET",
+               type: settings.type?settings.type:"GET",
                url: settings.corsUrl + settings.controller+ "/Get?id="+id,
                async:settings.async,
                dataType: "json",
+               headers:settings.headers,
                timeout: settings.timeout?settings.timeout:25000,
                success: settings.success,
                error: settings.error,
@@ -133,10 +135,11 @@ var rest={
            }
 
            ajax({
-               type: "POST",
+                type: settings.type?settings.type:"POST",
                url: settings.corsUrl + settings.controller+ "/Add",
                async:settings.async,
                dataType: "json",
+                 headers:settings.headers,
                timeout: settings.timeout?settings.timeout:25000,
                data:data,
                success: settings.success,
@@ -167,10 +170,11 @@ var rest={
             }
 
             ajax({
-                type: "POST",
+                type: settings.type?settings.type:"POST",
                 url: settings.corsUrl + settings.controller+ "/Update",
                 async:settings.async,
                 dataType: "json",
+                  headers:settings.headers,
                 timeout: settings.timeout?settings.timeout:25000,
                 data:data,
                 success: settings.success,
@@ -188,7 +192,7 @@ var rest={
         if(!settings.corsUrl) {//允许为空,则为当前域名
             settings.corsUrl = "/";
         }
-        var type="POST";//请求类型
+        var type=settings.type?settings.type:"POST";//请求类型
        if(this.validate(settings)) {
 
 
@@ -201,7 +205,7 @@ var rest={
                    }
                    else {
                        throw  new Error("paramModelName[自定义条件参数名称]必须为字符类型");
-                       return false;
+                    
                    }
                }
                else {
@@ -210,13 +214,13 @@ var rest={
            }
            else if (typeof  (paramModel * 1) === "number") {//数值型
 
-               type = "GET";
+                type=settings.type?settings.type:"GET";
                url = url + "?id=" + paramModel;
                data = null;
            }
            else {
                throw new Error("paramModel要么查询格式的数组,要么为id字段数字");
-               return false;
+              
            }
 
            ajax({
@@ -224,6 +228,7 @@ var rest={
                url: url,
                async:settings.async,
                dataType: "json",
+                 headers:settings.headers,
                timeout: settings.timeout ? settings.timeout : 25000,
                data: data,
                success: settings.success,
@@ -250,7 +255,7 @@ var rest={
                     }
                     else {
                         throw  new Error("paramModelName[自定义查询条件参数名称]必须为字符类型");
-                        return false;
+                      
                     }
                 }
                 else {
@@ -259,16 +264,17 @@ var rest={
             }
             else {
                 throw  new Error("paramModel[查询条件]格式不正确,要么为空要么为是数组");
-                return false;
+              
             }
 
 
 
             ajax({
-                type: "POST",
+                type: settings.type?settings.type:"POST",
                 url: "/" + settings.controller + "/Query",
                 async:settings.async,
                 dataType: "json",
+                  headers:settings.headers,
                 timeout: settings.timeout?settings.timeout:25000,
                 data:data,
                 success: settings.success,
@@ -295,19 +301,20 @@ var rest={
                 else {
                     //可以为空
                     throw  new Error("pageModel中的paramModel[查询条件]格式不正确,要么为空要么为是数组");
-                    return false;
+                   
                 }
 
             }
             else {
                 throw  new Error("pageModel[分页参数]格式不正确,不能为空必须是对象");
-                return false;
+              
             }
             ajax({
-                type: "POST",
+                type: settings.type?settings.type:"POST",
                 url: "/" + settings.controller + "/Page",
                 async: settings.async,
                 dataType: "json",
+                  headers:settings.headers,
                 timeout: settings.timeout ? settings.timeout : 25000,
                 data: settings.pageModel,
                 success: settings.success,

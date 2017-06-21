@@ -16,6 +16,7 @@ class Model
         this.contentType="application/x-www-form-urlencoded";//请求数据格式，可以设置为false
         this.async=true;//是否异步
         this.timeout=null;//超时
+        this.headers=[];//对headers的设置
     }
 }
 module .exports=Model;
