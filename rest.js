@@ -1,320 +1,272 @@
 /**
  * Created by wangzhiyong on 16/10/5.
  * 将rest独立出来
- * ** date;2016-11-05 修改
+ *  date;2016-11-05 修改
+ * date:2017-07-07 修改bug,完善逻辑与注释，及简化实现方式
  */
 
-   var ajax= require("./ajax.js");
-//RSST开发模式
-var rest={
-    validate:function(settings,type) {
-        if (!settings || !(settings instanceof  Object)) {
+var ajax = require("./ajax.js");
+
+/**
+ * restful 请求方式
+ */
+var rest = {
+    /**
+     * 设置默认参数
+     * @param {oject} settings 请求对象
+     * @returns {object}
+     */
+    defaultArgs: function (settings) {
+        if (!settings.corsUrl) {//允许为空,则为当前域名
+            settings.corsUrl = "/";
+        }
+        return settings;
+
+    },
+    /** 
+     * 验证
+     * @returns {boolean}
+    */
+    validate: function (settings, type) {
+        if (!settings || !(settings instanceof Object)) {
             throw new Error("ajax配置无效,不能为空,必须为对象");
-          
+
         }
 
-        if(!settings.controller) {//控制器为空
+        if (!settings.controller) {//控制器为空
             throw new Error("ajax的controller[控制器]不能为空");
-          
+
         }
 
-        if(!settings.corsUrl) {//允许为空,则为当前域名
+        if (!settings.corsUrl) {//允许为空,则为当前域名
             settings.corsUrl = "/";
         }
-        else if(typeof settings.corsUrl !=="string")
-        {
-            throw  new Error("corsUrl 必须为字符类型");
-          
+        else if (typeof settings.corsUrl !== "string") {
+            throw new Error("corsUrl 必须为字符类型");
+
         }
-        if(!settings.success) {
+        if (!settings.success) {
             throw new Error("ajax的success[请求成功函数]不能为空");
-            
+
         }
-        else if(typeof settings.success !=="function")
-        {
+        else if (typeof settings.success !== "function") {
             throw new Error("ajax的success[请求成功函数]必须为函数");
-         
+
         }
 
-        if(settings.error&&typeof settings.error !=="function") {
+        if (settings.error && typeof settings.error !== "function") {
             throw new Error("ajax的error[请求失败函数]必须为函数");
-          
+
         }
 
-        if(!type) {
-            switch (type)
-            {
+        if (!type) {
+            switch (type) {
                 case "get"://获取实例模型
-                    if(settings.id==null||settings.id==undefined)
-                    {
-                        throw  new Error("id参数不能空");
-                       
-                    }
-                    else if(typeof settings.id !=="number")
-                    {
-                        throw  new Error("id必须为数字");
-                        
+                    if (!settings.id) {
+                        throw new Error("id参数不能空");
                     }
                     break;
-                case "add"://新增或者修改
-                    if(settings.model ==null||settings.model==undefined)
-                    {
+                case "add"://修改
+                case "update"://修改
+                    if (!settings.model) {
                         throw new Error("数据模型不能为空");
-                      
                     }
                     break;
-            }
-        }
-        return  true;
-    },
-    //获取模型
-    getModel:function(settings) {
-        /// <summary>
-        /// 获取模型
-        /// </summary>
-        /// <param name="settings" type="object">settings</param>
-        if(!settings.corsUrl) {//允许为空,则为当前域名
-            settings.corsUrl = "/";
-        }
-        if(this.validate(settings)) {
-            ajax({
-                type: settings.type?settings.type:"GET",
-                url: settings.corsUrl + settings.controller + "/GetModel",
-                async:settings.async,
-                dataType: "json",
-                headers:settings.headers,
-                timeout: settings.timeout?settings.timeout:25000,
-                success: settings.success,
-                error: settings.error,
-            });
-        }
-    },
-    //获取模型实例
-    get:function() {
-        /// <summary>
-        /// 获取模型实例
-        /// </summary>
-        /// <param name="settings" type="object">settings</param>
-        if(!settings.corsUrl) {//允许为空,则为当前域名
-            settings.corsUrl = "/";
-        }
-       if(this.validate(settings,"get"))
-       {
-           ajax({
-               type: settings.type?settings.type:"GET",
-               url: settings.corsUrl + settings.controller+ "/Get?id="+id,
-               async:settings.async,
-               dataType: "json",
-               headers:settings.headers,
-               timeout: settings.timeout?settings.timeout:25000,
-               success: settings.success,
-               error: settings.error,
-           });
-       }
+                case "query"://条件查询
+                case "page"://分页查询
+                    if (settings.pageModel && settings.pageModel instanceof Object) {
+                        //不能为空
+                        if (!settings.pageModel.paramModel || (settings.pageModel.paramModel && settings.pageModel.paramModel instanceof Array)) {
+                            //是否数组
+                        }
+                        else {
+                            //可以为空
+                            throw new Error("pageModel中的paramModel[查询条件]格式不正确,要么为空要么为是数组");
+                        }
 
-
-    },
-    //新增
-    add:function(settings) {
-        /// <summary>
-        /// 新增
-        /// </summary>
-        /// <param name="settings" type="object">settings</param>
-        if(!settings.corsUrl) {//允许为空,则为当前域名
-            settings.corsUrl = "/";
-        }
-        var data={};
-       if( this.validate(settings,"add")) {
-           if(settings.model instanceof  Array)
-           {//如果是数组，则将其转对象
-               data={model:settings.model};
-           }
-           else
-           {
-               data=settings.model;
-           }
-
-           ajax({
-                type: settings.type?settings.type:"POST",
-               url: settings.corsUrl + settings.controller+ "/Add",
-               async:settings.async,
-               dataType: "json",
-                 headers:settings.headers,
-               timeout: settings.timeout?settings.timeout:25000,
-               data:data,
-               success: settings.success,
-               error: settings.error,
-           });
-       }
-
-
-    },
-    //更新
-    update:function(settings) {
-        /// <summary>
-        /// 更新
-        /// </summary>
-        /// <param name="settings" type="object">settings</param>
-        if(!settings.corsUrl) {//允许为空,则为当前域名
-            settings.corsUrl = "/";
-        }
-        var data={};//数据模型
-        if( this.validate(settings,"add")) {
-            if(settings.model instanceof  Array)
-            {//如果是数组，则将其转对象
-                data={model:settings.model};
-            }
-            else
-            {
-                data=settings.model;
-            }
-
-            ajax({
-                type: settings.type?settings.type:"POST",
-                url: settings.corsUrl + settings.controller+ "/Update",
-                async:settings.async,
-                dataType: "json",
-                  headers:settings.headers,
-                timeout: settings.timeout?settings.timeout:25000,
-                data:data,
-                success: settings.success,
-                error: settings.error,
-            });
-        }
-
-    },
-    //删除
-    delete:function(settings) {
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="settings" type="object">settings</param>
-        if(!settings.corsUrl) {//允许为空,则为当前域名
-            settings.corsUrl = "/";
-        }
-        var type=settings.type?settings.type:"POST";//请求类型
-       if(this.validate(settings)) {
-
-
-           var url = settings.corsUrl + settings.controller + "/Delete";
-           var data = {};//因为要转换为后端能解析的数据格式必须是对象
-           if (settings.paramModel instanceof Array) {
-               if (settings.paramModelName) {//自定义,不为空
-                   if (typeof  settings.paramModelName === "string") {
-                       data[settings.paramModelName] = settings.paramModel;
-                   }
-                   else {
-                       throw  new Error("paramModelName[自定义条件参数名称]必须为字符类型");
-                    
-                   }
-               }
-               else {
-                   data.paramModel = settings.paramModel;//默认对象名
-               }
-           }
-           else if (typeof  (paramModel * 1) === "number") {//数值型
-
-                type=settings.type?settings.type:"GET";
-               url = url + "?id=" + paramModel;
-               data = null;
-           }
-           else {
-               throw new Error("paramModel要么查询格式的数组,要么为id字段数字");
-              
-           }
-
-           ajax({
-               type: type,
-               url: url,
-               async:settings.async,
-               dataType: "json",
-                 headers:settings.headers,
-               timeout: settings.timeout ? settings.timeout : 25000,
-               data: data,
-               success: settings.success,
-               error: settings.error
-           });
-       }
-    },
-    //条件查询
-    query:function( settings) {
-        /// <summary>
-        /// 条件查询
-        /// </summary>
-        /// <param name="settings" type="array">settings</param>
-        if(!settings.corsUrl) {//允许为空,则为当前域名
-            settings.corsUrl = "/";
-        }
-        if(this.validate(settings)) {
-            var data={};//因为要转换为后端能解析的数据格式必须是对象
-
-            if (!settings.paramModel||(settings.paramModel && settings.paramModel instanceof Array)) {
-                if (settings.paramModelName) {//自定义,不为空
-                    if (typeof  settings.paramModelName === "string") {
-                        data[settings.paramModelName] = settings.paramModel;
                     }
                     else {
-                        throw  new Error("paramModelName[自定义查询条件参数名称]必须为字符类型");
-                      
+                        throw new Error("pageModel[分页参数]格式不正确,不能为空必须是对象");
                     }
-                }
-                else {
-                    data.paramModel = settings.paramModel;//默认对象名
-                }
+                    break;
+            }
+        }
+        return true;
+    },
+    /**
+     * 获取表结构
+      * @param {oject} settings 请求对象
+     * @returns {boolean}
+     */
+    getModel: function (settings) {
+        if (this.validate(settings)) {
+            ajax({
+                type: settings.type ? settings.type : "GET",
+                url: settings.corsUrl + settings.controller,
+                async: settings.async,
+                contentType: settings.contentType,
+                dataType: "json",
+                headers: settings.headers,
+                timeout: settings.timeout ? settings.timeout : 25000,
+                success: settings.success,
+                error: settings.error,
+            });
+        }
+    },
+    /**
+     * 获取实例
+     *  @param {oject} settings 请求对象
+     * @returns {boolean}
+     */
+    get: function () {
+
+        if (!settings.corsUrl) {//允许为空,则为当前域名
+            settings.corsUrl = "/";
+        }
+        if (this.validate(settings, "get")) {
+            ajax({
+                type: settings.type ? settings.type : "GET",
+                url: settings.corsUrl + settings.controller + "/" + id,
+                async: settings.async,
+                contentType: settings.contentType,
+                dataType: "json",
+                headers: settings.headers,
+                timeout: settings.timeout ? settings.timeout : 25000,
+                success: settings.success,
+                error: settings.error,
+            });
+        }
+
+
+    },
+    /**
+     * 新增实例
+     *  @param {oject} settings 请求对象
+     * @returns {null}
+     */
+    add: function (settings) {
+      settings=this.defaultArgs(settings);
+        var data = {};
+        if (this.validate(settings, "add")) {
+            if (settings.model instanceof Array) {//如果是数组，则将其转对象
+                data = { model: settings.model };
             }
             else {
-                throw  new Error("paramModel[查询条件]格式不正确,要么为空要么为是数组");
-              
+                data = settings.model;
             }
 
+            ajax({
+                type: settings.type ? settings.type : "POST",
+                url: settings.corsUrl + settings.controller,
+                async: settings.async,
+                contentType: settings.contentType,
+                dataType: "json",
+                headers: settings.headers,
+                timeout: settings.timeout ? settings.timeout : 25000,
+                data: data,
+                success: settings.success,
+                error: settings.error,
+            });
+        }
 
+
+    },
+     /**
+     * 更新实例
+     *  @param {oject} settings 请求对象
+     * @returns {null}
+     */
+    update: function (settings) {
+     settings=this.defaultArgs(settings);
+        var data = {};//数据模型
+        if (this.validate(settings, "add")) {
+            if (settings.model instanceof Array) {//如果是数组，则将其转对象
+                data = { model: settings.model };
+            }
+            else {
+                data = settings.model;
+            }
 
             ajax({
-                type: settings.type?settings.type:"POST",
-                url: "/" + settings.controller + "/Query",
-                async:settings.async,
+                type: settings.type ? settings.type : "PUT",
+                url: settings.corsUrl + settings.controller,
+                async: settings.async,
+                contentType: settings.contentType,
                 dataType: "json",
-                  headers:settings.headers,
-                timeout: settings.timeout?settings.timeout:25000,
-                data:data,
+                headers: settings.headers,
+                timeout: settings.timeout ? settings.timeout : 25000,
+                data: data,
                 success: settings.success,
-                error:settings. error
+                error: settings.error,
             });
         }
 
     },
-    //分页条件查询
-    page:function(settings) {
-        /// <summary>
-        /// 分页条件查询
-        /// </summary>
-        /// <param name="settings" type="object">settings</param>
-        if(!settings.corsUrl) {//允许为空,则为当前域名
-            settings.corsUrl = "/";
-        }
-        if(this.validate(settings)) {
-            if (settings.pageModel && settings.pageModel instanceof Object) {
-                //不能为空
-                if (!settings.pageModel.paramModel||(settings.pageModel.paramModel && settings.pageModel.paramModel instanceof Array)) {
-                  //是否数组
-                }
-                else {
-                    //可以为空
-                    throw  new Error("pageModel中的paramModel[查询条件]格式不正确,要么为空要么为是数组");
-                   
-                }
-
-            }
-            else {
-                throw  new Error("pageModel[分页参数]格式不正确,不能为空必须是对象");
-              
-            }
+     /**
+     * 删除实例
+     *  @param {oject} settings 请求对象
+     * @returns {null}
+     */
+    delete: function (settings) {
+        settings=this.defaultArgs(settings);
+        var type = settings.type ? settings.type : "DELETE";//请求类型
+        if (this.validate(settings)) {
             ajax({
-                type: settings.type?settings.type:"POST",
+                type: type,
+                url: settings.corsUrl + settings.controller + "/" + settings.id,
+                async: settings.async,
+                contentType: settings.contentType,
+                dataType: "json",
+                headers: settings.headers,
+                timeout: settings.timeout ? settings.timeout : 25000,
+
+                success: settings.success,
+                error: settings.error
+            });
+        }
+    },
+    /**
+     * 条件查询
+     *  @param {oject} settings 请求对象
+     * @returns {null}
+     */
+    query: function (settings) {
+        settings=this.defaultArgs(settings);
+        if (this.validate(settings)) {
+            var data = {};//因为要转换为后端能解析的数据格式必须是对象
+
+            ajax({
+                type: settings.type ? settings.type : "POST",
+                url: "/" + settings.controller + "/Query",
+                contentType: settings.contentType,
+                async: settings.async,
+
+                dataType: "json",
+                headers: settings.headers,
+                timeout: settings.timeout ? settings.timeout : 25000,
+                data: data,
+                success: settings.success,
+                error: settings.error
+            });
+        }
+
+    },
+    /**
+     * 分页条件查询
+     *  @param {oject} settings 请求对象
+     * @returns {null}
+     */
+    page: function (settings) {
+        settings=this.defaultArgs(settings);
+        if (this.validate(settings)) {
+
+            ajax({
+                type: settings.type ? settings.type : "POST",
                 url: "/" + settings.controller + "/Page",
                 async: settings.async,
+                contentType: settings.contentType,
                 dataType: "json",
-                  headers:settings.headers,
+                headers: settings.headers,
                 timeout: settings.timeout ? settings.timeout : 25000,
                 data: settings.pageModel,
                 success: settings.success,
@@ -325,4 +277,4 @@ var rest={
     },
 };
 
-module .exports=rest;
+module.exports = rest;

@@ -22,7 +22,7 @@ var paramFormat=function(data) {
     else if(data instanceof  Array)
     {
         throw new Error("参数必须是字符,空值,对象,FormData,不可以为数组");
-        return null;
+       
     }
 
     data =arrayFormat(data);//将参数模型中数组转换为对象,再格式式参数
