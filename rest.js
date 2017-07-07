@@ -256,7 +256,7 @@ var rest = {
      *  @param {oject} settings 请求对象
      * @returns {null}
      */
-    page: function (settings) {
+    page: function (settings) {g
         settings=this.defaultArgs(settings);
         if (this.validate(settings)) {
 
