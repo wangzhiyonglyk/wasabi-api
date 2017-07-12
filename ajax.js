@@ -20,15 +20,14 @@
         },
     })
  */
-var paramFormat = require("./paramFormat.js");
-var httpCode = require("./httpCode.js");
-var func = require("../libs/func");
-
+import  paramFormat from "./paramFormat.js";
+import httpCode from "./httpCode.js";
+import   validate from  "./validate";
 /**
  * ajax请求
  */
-var ajax = function(settings) {
-		var xhrRequest = createXHR();
+ export default function(settings) {
+		let xhrRequest = createXHR();
 		if (!validate()) { //验证不通过
 			return;
 		}
@@ -55,7 +54,7 @@ var ajax = function(settings) {
 		 */
 
 		function createXHR() {
-			var xhr;
+			let xhr;
 			if (window.XMLHttpRequest) {
 				xhr = new XMLHttpRequest();
 			} else {
@@ -65,84 +64,7 @@ var ajax = function(settings) {
 
 		}
 
-		/**
-		 * 验证
-		 * @returns {boolean}
-		 */
-
-		function validate() {
-			if (!xhrRequest) {
-				throw new Error("您的浏览器不支持ajax请求");
-
-			}
-			if (!settings || !(settings instanceof Object)) {
-				throw new Error("ajax配置无效,不能为空,必须为对象");
-
-			}
-			if (settings.data instanceof Array) {
-				throw new Error("ajax的data参数必须是字符,空值,对象,FormData,不可以为数组");
-
-			}
-			if (!settings.dataType) { //回传的数据格式,默认为json
-				settings.dataType = "json";
-			}
-			if (!settings.type) { //请求方式
-				settings.type = "GET";
-			}
-			if (settings.async !== false) {
-				settings.async = true; //默认为异步的
-			}
-			if (settings.url == null || settings.url == undefined || settings.url === "") {
-				throw new Error("请求地址不能为空");
-
-			}
-			if (!settings.success) {
-				throw new Error("ajax的success[请求成功函数]不能为空");
-
-			} else if (typeof settings.success !== "function") {
-				throw new Error("ajax的success[请求成功函数]必须为函数");
-
-			}
-
-			if (settings.error && typeof settings.error !== "function") {
-				throw new Error("ajax的error[请求失败函数]必须为函数");
-
-			}
-			if (settings.progress && typeof settings.progress !== "function") {
-				throw new Error("ajax的progress[上传进度函数]必须为函数");
-
-			}
-			if (settings.data && settings.data.constructor === FormData) { //如果是FormData不进行处理，相当于jquery ajax中contentType=false,processData=false,不设置Content-Type
-				settings.contentType == false;
-			} else if (settings.contentType == false) { //为false，是正确值
-
-			} else if (settings.contentType == null || settings.contentType == undefined || settings.contentType == "") { //请求的数据格式,默认值
-				//如果为false，是正确值
-				settings.contentType = "application/x-www-form-urlencoded"; //默认表单提交
-			}
-			if (settings.headers && !(settings.headers instanceof Object)) {
-				throw new Error("headers要么为空，要么为对象");
-
-			}
-
-			//格式化中已经处理了FormData的情况
-			settings.data = paramFormat(settings.data);
-
-			//get方式时如果有data参数，则将参数追加到url中
-			if (settings.type.toLowerCase() == "get") {
-				if (settings.data && settings.url.indexOf("?") <= -1) {
-					settings.url += "?";
-				}
-				if (settings.data && settings.url.indexOf("?") > -1 && settings.url.indexOf("?") == settings.url.length - 1) {
-					settings.url += settings.data;
-				} else if (settings.data && settings.url.indexOf("?") > -1 && settings.url.indexOf("?") < settings.url.length - 1) {
-					settings.url += "&" + settings.data;
-				}
-			}
-
-			return true;
-		}
-
+		
 		/**
 		 * xhr参数设置
 		 */
@@ -176,7 +98,7 @@ var ajax = function(settings) {
 			//设置headers
 			if (settings.headers instanceof Object) {
 				try {
-					for (var prop in settings.headers) {
+					for (let prop in settings.headers) {
 
 						xhrRequest.setRequestHeader(prop, settings.headers[prop]);
 					}
@@ -202,7 +124,7 @@ var ajax = function(settings) {
 				console.log("浏览器不支持xhr2.0，已经转为1.0");
 				xhrRequest.onreadystatechange = function() {
 					if (xhrRequest.readyState == 4) {
-						var e = {};
+						let e = {};
 						e.target = xhrRequest;
 						load(e); //调用加载成功事件
 					}
@@ -219,7 +141,7 @@ var ajax = function(settings) {
 
 		function progress(event) {
 			if (event.lengthComputable) {
-				var percentComplete = Math.round(event.loaded * 100 / event.total);
+				let percentComplete = Math.round(event.loaded * 100 / event.total);
 				if (typeof settings.progress === "function") {
 					settings.progress(percentComplete); //执行上传进度事件
 				}
@@ -232,11 +154,11 @@ var ajax = function(settings) {
 		 */
 
 		function load(event) {
-			var xhr = (event.target);
+			let xhr = (event.target);
 			if (xhr.readyState == 4 && ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304)) { //请求成功
 				if (settings.dataType == "json") {
 					//json格式请求
-					var result = xhr.response ? xhr.response : xhr.responseText; //1.0
+					let result = xhr.response ? xhr.response : xhr.responseText; //1.0
 					if (result) {
 						if (typeof result == "string") { //IE8.360 中没有对结果进行JSON化
 							result = JSON.parse(result);
@@ -287,7 +209,7 @@ var ajax = function(settings) {
 
 
 		function loadEnd(event) {
-			var xhr = (event.target);
+			let xhr = (event.target);
 			if (typeof settings.complete === "function") { //设置了完成事件,
 				if (xhr.readyState == 4 && ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304)) { //请求成功
 					//304客户端已经执行了GET，但文件未变化,认为也是成功的
@@ -306,7 +228,7 @@ var ajax = function(settings) {
 		 */
 
 		function timeout(event) {
-			var xhr = (event.target);
+			let xhr = (event.target);
 			errorHandler(xhr, 802, "请求超时");
 		}
 
@@ -316,7 +238,7 @@ var ajax = function(settings) {
 		 */
 
 		function error(event) {
-			var xhr = (event.target);
+			let xhr = (event.target);
 			errorHandler(xhr, xhr.status, xhr.statusText);
 		}
 
@@ -346,4 +268,3 @@ var ajax = function(settings) {
 		}
 	}
 
-module.exports = ajax;

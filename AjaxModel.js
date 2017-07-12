@@ -2,7 +2,7 @@
  * Created by wangzhiyong on 16/10/5.
  * ajax数据模型
  */
-class Model
+export default class Model
 {
     constructor(type="GET",url,success,data=null,error=null)
     {
@@ -19,4 +19,3 @@ class Model
         this.headers=[];//对headers的设置
     }
 }
-module .exports=Model;

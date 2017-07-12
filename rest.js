@@ -5,12 +5,12 @@
  * date:2017-07-07 修改bug,完善逻辑与注释，及简化实现方式
  */
 
-var ajax = require("./ajax.js");
+import  ajax  from "./ajax.js";
 
 /**
  * restful 请求方式
  */
-var rest = {
+export default  {
     /**
      * 设置默认参数
      * @param {oject} settings 请求对象
@@ -146,7 +146,7 @@ var rest = {
      */
     add: function (settings) {
       settings=this.defaultArgs(settings);
-        var data = {};
+        let data = {};
         if (this.validate(settings, "add")) {
             if (settings.model instanceof Array) {//如果是数组，则将其转对象
                 data = { model: settings.model };
@@ -178,7 +178,7 @@ var rest = {
      */
     update: function (settings) {
      settings=this.defaultArgs(settings);
-        var data = {};//数据模型
+        let data = {};//数据模型
         if (this.validate(settings, "add")) {
             if (settings.model instanceof Array) {//如果是数组，则将其转对象
                 data = { model: settings.model };
@@ -209,7 +209,7 @@ var rest = {
      */
     delete: function (settings) {
         settings=this.defaultArgs(settings);
-        var type = settings.type ? settings.type : "DELETE";//请求类型
+        let type = settings.type ? settings.type : "DELETE";//请求类型
         if (this.validate(settings)) {
             ajax({
                 type: type,
@@ -233,7 +233,7 @@ var rest = {
     query: function (settings) {
         settings=this.defaultArgs(settings);
         if (this.validate(settings)) {
-            var data = {};//因为要转换为后端能解析的数据格式必须是对象
+            let data = {};//因为要转换为后端能解析的数据格式必须是对象
 
             ajax({
                 type: settings.type ? settings.type : "POST",
@@ -277,4 +277,3 @@ var rest = {
     },
 };
 
-module.exports = rest;

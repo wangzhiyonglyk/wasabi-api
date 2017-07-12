@@ -2,6 +2,7 @@
  * Created by wangzhiyong on 16/10/5.
  * 将fetch 方法从框架独立出来
  * 2017-01-15进行修改，完善
+ * 2017-05 修改过，因为ie8不支持.catch语法，所以将.catch去掉，加腻子脚本兼容也没用TODO
  * 使用方法
  *
  * 1.使用promise
@@ -31,9 +32,9 @@
     })；
  */
 
-var paramFormat = require("./paramFormat.js");
-var httpCode = require("./httpCode.js");
-var fetchapi = function (fetchmodel) {
+let paramFormat = require("./paramFormat.js");
+let httpCode = require("./httpCode.js");
+let fetchapi = function (fetchmodel) {
     this.then = null;
     if (!fetchmodel || !(fetchmodel instanceof Object)) {
         throw new Error("fetchmodel配置无效,不能为空,必须为对象");
@@ -99,7 +100,7 @@ var fetchapi = function (fetchmodel) {
         }
     }
 
-    var fetchBody = {
+    let fetchBody = {
         credentials: fetchmodel.credentials ? 'include' : null,//附带cookies之类的凭证信息
         method: fetchmodel.type,
         headers: fetchmodel.contentType ? {
@@ -110,7 +111,7 @@ var fetchapi = function (fetchmodel) {
     //设置headers
     if (settings.headers instanceof Object) {
         try {
-            for (var prop in settings.headers) {
+            for (let prop in settings.headers) {
 
                 fetchBody.headers(prop, fetchmodel.headers[prop]);
             }

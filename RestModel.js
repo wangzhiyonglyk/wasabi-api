@@ -3,7 +3,7 @@
  * 单独为rest设置模型
  */
 
-class RestModel
+export default class RestModel
 {
     constructor(controller,success,error=null)
     {
@@ -23,4 +23,3 @@ class RestModel
 
     }
 }
-module .exports=RestModel;

@@ -8,7 +8,8 @@
   },
   "author": "wangzhiyong",
   "license": "ISC",
-  "devDependencies": {
-    "whatwg-fetch": "^1.0.0"
+  "devDependencies": {},
+  "dependencies": {
+    "crypto-js": "^3.1.9-1"
   }
 }
