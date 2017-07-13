@@ -4,13 +4,12 @@ date:2017-07-12
  ajax加密请求方法
 */
 import crypto from "crypto-js";
-import paramFormat from "./paramFormat";
 import validate from "./validate";
 import ajax from "./ajax";
 let secretAjax = function (settings) {
-    if (!validate()) {
-        return;
-    }
+   	if (!validate(settings)) {//验证有效性
+		return;
+	}
     if (!settings.secretType) {//加密方式
         settings.secretType = "HmacSHA1";//默认使用HMAC-SHA1加密方式
     }
@@ -19,9 +18,13 @@ let secretAjax = function (settings) {
     }
     try {
         //将所业务参数与签名参数排序
-        let keyArr = [...paramFormat(typeof settings.data === "object" ? settings.data : {}).keys, ...(typeof settings.headers === "object" ? settings.headers : {}).keys];
-        let keyObj = Object.assign(typeof settings.data === "object" ? settings.data : {}, typeof settings.headers === "object" ? settings.headers : {});
-        keyArr.sort();//排序
+        let keyObj = Object.assign(typeof settings.data === "object" ? settings.data : {}, typeof settings.headers === "object" ? settings.headers : {});//所以有参数
+        let keyArr = [];//所有参数名
+        for(let item in keyObj)
+            {
+                keyArr.push(item);
+            }
+         keyArr.sort();//排序
         //拼接参数字符串,并且加密得到签名sign字段
         let sign = crypto[settings.secretType](keyArr.map((item, index) => {
             return item + "=" + keyObj[item];

@@ -3,13 +3,10 @@
 /**
  * 验证
  * @param {{}} settings ajax请求的配置参数
- * @returns boolean
+ * @returns object
  */
- export default function validate(settings) {
-    if (!xhrRequest) {
-        throw new Error("您的浏览器不支持ajax请求");
 
-    }
+ export default function validate(settings) {
     if (!settings || !(settings instanceof Object)) {
         throw new Error("ajax配置无效,不能为空,必须为对象");
 
@@ -59,21 +56,6 @@
 
     }
 
-    //格式化中已经处理了FormData的情况
-    settings.data = paramFormat(settings.data);
-
-    //get方式时如果有data参数，则将参数追加到url中
-    if (settings.type.toLowerCase() == "get") {
-        if (settings.data && settings.url.indexOf("?") <= -1) {
-            settings.url += "?";
-        }
-        if (settings.data && settings.url.indexOf("?") > -1 && settings.url.indexOf("?") == settings.url.length - 1) {
-            settings.url += settings.data;
-        } else if (settings.data && settings.url.indexOf("?") > -1 && settings.url.indexOf("?") < settings.url.length - 1) {
-            settings.url += "&" + settings.data;
-        }
-    }
-
-    return true;
+  return true;
 }
 
