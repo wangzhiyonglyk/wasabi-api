@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "wasabi-api",
   "version": "0.5.1",
@@ -13,3 +14,19 @@
     "crypto-js": "^3.1.9-1"
   }
 }
+=======
+{
+  "name": "wasabi-api",
+  "version": "0.5.3",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wangzhiyong",
+  "license": "ISC",
+  "devDependencies": {
+    "whatwg-fetch": "^1.0.0"
+  }
+}
+>>>>>>> ad87b818901cdd10627034114a26ce818060b7d0

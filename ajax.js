@@ -10,7 +10,11 @@
  * date:2017-06-16 修改asnyc参数的配置
  * date:2017-07-01？增加headers参数 
  * date:2017-07-07  完善一些注释，完善一些逻辑
+<<<<<<< HEAD
  * date:2017-07-13 
+=======
+ * date 2017-07-11 去掉一个错误的引用
+>>>>>>> ad87b818901cdd10627034114a26ce818060b7d0
  * 使用方法
  *     ajax({
        url:"http://localhost:7499/Admin/Add",
@@ -21,9 +25,15 @@
         },
     })
  */
+<<<<<<< HEAD
 import  paramFormat from "./paramFormat.js";
 import httpCode from "./httpCode.js";
 import   validate from  "./validate";
+=======
+var paramFormat = require("./paramFormat.js");
+var httpCode = require("./httpCode.js");
+
+>>>>>>> ad87b818901cdd10627034114a26ce818060b7d0
 /**
  * ajax请求
  */
