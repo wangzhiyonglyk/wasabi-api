@@ -7,6 +7,7 @@ exports.paramFormat = require('./paramFormat.js');//格式化参数
 
 //接口
 exports.ajax = require('./ajax.js');//ajax
+exports.secretAjax = require('./secretAjax.js');//secretAjax
  exports.fetchapi = require('./fetchapi.js');//fetch
   exports.rest = require('./rest.js');//rest
 
