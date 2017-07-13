@@ -27,7 +27,7 @@
     if (settings.async !== false) {
         settings.async = true; //默认为异步的
     }
-    if (settings.url == null || settings.url == undefined || settings.url === "") {
+    if (!settings.url) {
         throw new Error("请求地址不能为空");
 
     }
@@ -38,7 +38,6 @@
         throw new Error("ajax的success[请求成功函数]必须为函数");
 
     }
-
     if (settings.error && typeof settings.error !== "function") {
         throw new Error("ajax的error[请求失败函数]必须为函数");
 

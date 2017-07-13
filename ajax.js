@@ -10,6 +10,7 @@
  * date:2017-06-16 修改asnyc参数的配置
  * date:2017-07-01？增加headers参数 
  * date:2017-07-07  完善一些注释，完善一些逻辑
+ * date:2017-07-13 
  * 使用方法
  *     ajax({
        url:"http://localhost:7499/Admin/Add",
@@ -207,7 +208,10 @@ import   validate from  "./validate";
 
 		}
 
-
+		/**
+		 * 请求完成
+		 * @param {*} event 
+		 */
 		function loadEnd(event) {
 			let xhr = (event.target);
 			if (typeof settings.complete === "function") { //设置了完成事件,
@@ -215,7 +219,7 @@ import   validate from  "./validate";
 					//304客户端已经执行了GET，但文件未变化,认为也是成功的
 					settings.complete(xhr, "success");
 				} else if (xhr.readyState == 4 && xhr.status == 0) { //本地响应成功，TODO 暂时不知道如何处理
-
+						settings.complete(xhr, "error");
 				} else { //错误
 					settings.complete(xhr, "error");
 				}
@@ -244,26 +248,20 @@ import   validate from  "./validate";
 
 		/**
 		 * 通用错误处理函数
-		 * @param {object}xhr xhr对象
+		 * @param {{}}xhr xhr对象
 		 * @param errCode  错误代码
 		 * @param message 信息提示
 		 */
 
 		function errorHandler(xhr, errCode, message) {
-
 			if (errCode >= 300 && errCode < 600) {
-
-				console.log(errCode, httpCode[errCode.toString()]); //直接处理http错误代码
-				if (typeof settings.error === "function") { //设置了错误事件,
-					settings.error(xhr, errCode, httpCode[errCode.toString()]);
-				}
+				//是http错误		
+				//设置了错误事件
+				typeof settings.error === "function"?settings.error(xhr, errCode, httpCode[errCode.toString()]):null;	
 			} else {
-				console.log(errCode, message);
-				if (typeof settings.error === "function") { //设置了错误事件,
-					settings.error(xhr, errCode, message);
-				}
+				//设置了错误事件,
+				typeof settings.error === "function"?settings.error(xhr, errCode,message):null;		
 			}
-
 
 		}
 	}

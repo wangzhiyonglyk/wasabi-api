@@ -4,7 +4,7 @@
 //将参数模型中数组转换为对象
 
 //格式化参数
-var paramFormat=function(data) {
+let paramFormat=function(data) {
     //将参数中的数组转为后台可识别的格式
 
     if(!data)
@@ -26,8 +26,8 @@ var paramFormat=function(data) {
     }
 
     data =arrayFormat(data);//将参数模型中数组转换为对象,再格式式参数
-    var arr = [];
-    for (var name in data) {
+    let arr = [];
+    for (let name in data) {
         arr.push(encodeURIComponent(name) + "=" + encodeURIComponent(data[name]));
     }
     if(arr.length>0) {
@@ -38,7 +38,7 @@ var paramFormat=function(data) {
     }
 
     function arrayFormat(data) {
-        var MvcParameterAdaptive = {};
+        let MvcParameterAdaptive = {};
         //验证是否为数组
         MvcParameterAdaptive.isArray = Function.isArray || function (o) {
                 return typeof o === "object" &&
@@ -47,12 +47,12 @@ var paramFormat=function(data) {
 
         //将数组转换为对象
         MvcParameterAdaptive.convertArrayToObject = function (/*数组名*/arrName, /*待转换的数组*/array, /*转换后存放的对象，不用输入*/saveOjb) {
-            var obj = saveOjb || {};
+            let obj = saveOjb || {};
 
             function func(name, arr) {
-                for (var i in arr) {
+                for (let i in arr) {
                     if (!MvcParameterAdaptive.isArray(arr[i]) && typeof arr[i] === "object") {
-                        for (var j in arr[i]) {
+                        for (let j in arr[i]) {
                             if (MvcParameterAdaptive.isArray(arr[i][j])) {
                                 func(name + "[" + i + "]." + j, arr[i][j]);
                             } else if (typeof arr[i][j] === "object") {
@@ -74,10 +74,10 @@ var paramFormat=function(data) {
 
         //转换对象
         MvcParameterAdaptive.convertObject = function (/*对象名*/objName, /*待转换的对象*/turnObj, /*转换后存放的对象，不用输入*/saveOjb) {
-            var obj = saveOjb || {};
+            let obj = saveOjb || {};
 
             function func(name, tobj) {
-                for (var i in tobj) {
+                for (let i in tobj) {
                     if (MvcParameterAdaptive.isArray(tobj[i])) {
                         MvcParameterAdaptive.convertArrayToObject(i, tobj[i], obj);
                     } else if (typeof tobj[i] === "object") {
@@ -93,7 +93,7 @@ var paramFormat=function(data) {
         };
 
 
-        var arrName = "";//参数名
+        let arrName = "";//参数名
 
         if (typeof data !== "object") throw new Error("请传入json对象");
         if (MvcParameterAdaptive.isArray(data) && !arrName) throw new Error("必须是对象,如果是数组请使用对象包裹！");
