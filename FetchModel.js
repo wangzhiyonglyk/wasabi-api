@@ -5,7 +5,7 @@
  *
  */
 
-class FetchModel
+ export default class FetchModel
 {
     constructor(url,success,data=null,error=null,type="GET")
     {
@@ -19,4 +19,3 @@ class FetchModel
         this.promise=false;//是否返回promise对象，如果为true,则fetchapi就可以使用then来处理异步
     }
 }
-module .exports=FetchModel;

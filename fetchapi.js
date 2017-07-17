@@ -34,7 +34,7 @@
 
 let paramFormat = require("./paramFormat.js");
 let httpCode = require("./httpCode.js");
-let fetchapi = function (fetchmodel) {
+export default function (fetchmodel) {
     this.then = null;
     if (!fetchmodel || !(fetchmodel instanceof Object)) {
         throw new Error("fetchmodel配置无效,不能为空,必须为对象");
@@ -187,7 +187,6 @@ let fetchapi = function (fetchmodel) {
         }
     }
 
-}
-    ;
-module.exports = fetchapi;
 
+    
+}

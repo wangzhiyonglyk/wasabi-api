@@ -6,7 +6,7 @@ date:2017-07-12
 import crypto from "crypto-js";
 import validate from "./validate";
 import ajax from "./ajax";
-let secretAjax = function (settings) {
+export default function (settings) {
    	if (!validate(settings)) {//验证有效性
 		return;
 	}
@@ -37,6 +37,6 @@ let secretAjax = function (settings) {
     catch (e) {
         throw new Error(e.message);
     }
-
+    
 }
-module.exports = secretAjax;
+

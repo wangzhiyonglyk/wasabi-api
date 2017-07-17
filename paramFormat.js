@@ -4,7 +4,7 @@
 //将参数模型中数组转换为对象
 
 //格式化参数
-let paramFormat=function(data) {
+export default function(data) {
     //将参数中的数组转为后台可识别的格式
 
     if(!data)
@@ -104,6 +104,3 @@ let paramFormat=function(data) {
         return MvcParameterAdaptive.convertObject("", data);
     }
 }
-
-
-module .exports=paramFormat;

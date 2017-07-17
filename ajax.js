@@ -29,6 +29,7 @@ import validate from "./validate";
 /**
  * ajax请求
  */
+
 export default function (settings) {
 
 	let xhrRequest = createXHR();//创建xhr对象
