@@ -1,4 +1,4 @@
-[[toc]]
+
 # 前端开发简要规范
 ## 参考文献
 [Web前端开发规范文档](http://www.jianshu.com/p/c361ced48e14)
