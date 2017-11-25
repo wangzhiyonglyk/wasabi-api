@@ -192,7 +192,7 @@ export default function (settings) {
 							}
 						} else {
 							if (result.message) { //有标准的错误信息
-								errorHandler(result, result.errCode ? result.errCode : "500", result.message);
+								errorHandler(result, result.errCode ? result.errCode : "801", result.message);
 							} else {
 								errorHandler(result, 801, "服务器正常响应，后台业务代码的逻辑报错");
 

@@ -19,16 +19,19 @@ export default function (settings) {
     try {
         //将所业务参数与签名参数排序
         let keyObj = Object.assign(typeof settings.data === "object" ? settings.data : {}, typeof settings.headers === "object" ? settings.headers : {});//所以有参数
-        let keyArr = [];//所有参数名
-        for(let item in keyObj)
+        let keyNameArr = [];//所有参数名
+        for(let key in keyObj)
             {
-                keyArr.push(item);
+                keyNameArr.push(key);
             }
-         keyArr.sort();//排序
+         keyNameArr.sort();//将参数名排序
         //拼接参数字符串,并且加密得到签名sign字段
-        let sign = crypto[settings.secretType](keyArr.map((item, index) => {
-            return item + "=" + keyObj[item];
+        let sign = crypto[settings.secretType](keyNameArr.map((key, index) => {
+            //将参数值格式化
+            let value=keyObj[key]?typeof keyObj[key] ==="object"? JSON.stringify(keyObj[key]):keyObj[key]:"";
+            return key + "=" + value;
         }).join("&"), settings.secretKey);
+        //如果没有传
         settings.headers = typeof settings.headers === "object" ? settings.headers : {};//处理headers;防止出错
         //将签名加入到请求头部
         settings.headers.sign = crypto.enc.Base64.stringify(sign);
