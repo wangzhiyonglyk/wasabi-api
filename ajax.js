@@ -192,9 +192,9 @@ export default function (settings) {
 							}
 						} else {
 							if (result.message) { //有标准的错误信息
-								errorHandler(result, result.errCode ? result.errCode : "500", result.message);
+								errorHandler(result, result.errCode ? result.errCode : "801", result.message);
 							} else {
-								errorHandler(result, 500, "服务器正常响应，后台业务代码的逻辑报错");
+								errorHandler(result, "801", "服务器正常响应，后台业务代码的逻辑报错");
 
 							}
 						}
@@ -207,7 +207,7 @@ export default function (settings) {
 
 					}
 				} else {
-					errorHandler(xhr, 802, "服务器返回的数据格式不正确");
+					errorHandler(xhr, "802", "服务器返回的数据格式不正确");
 				}
 			} else if (settings.dataType == "blob" || settings.dataType == "arrayBuffer") { //二进制数据
 				settings.success(xhr.response);
