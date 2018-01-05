@@ -75,7 +75,7 @@ export default function (settings) {
 	 */
 
 	function xhrParamsSet() {
-		//格式化中已经处理了FormData的情况
+		//格式化参数
 		settings.data = paramFormat(settings.data);
 		//get方式时如果有data参数，则将参数追加到url中
 		if (settings.type.toLowerCase() == "get") {

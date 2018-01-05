@@ -1,18 +1,19 @@
 /**
- * Created by wangzhiyong on 16/10/5.
+ * @author 王志勇
+ * @description 参数格式化
+ * @description date:2016-10-05 将格式化方法独立出来，尤其是处理数组问题
+ * @description date:2018-01-05 修正，
+ * @param {*} data 参数
  */
-//将参数模型中数组转换为对象
-
-//格式化参数
-export default function(data) {
+export default (data)=> {
     //将参数中的数组转为后台可识别的格式
 
     if(!data)
-    {
+    {//空直接返回
         return data;
     }
-    else if(typeof data ==="string")
-    {
+    else if(typeof data ==="string"||typeof data==="number")
+    {//直接返回
         return data;
     }
     else if(data.constructor===FormData) {//参数为FormData,直接返回
@@ -27,7 +28,7 @@ export default function(data) {
 
     data =arrayFormat(data);//将参数模型中数组转换为对象,再格式式参数
     let arr = [];
-    for (let name in data) {
+    for (let name in data) {//url格式化，并且将参数字符转义
         arr.push(encodeURIComponent(name) + "=" + encodeURIComponent(data[name]));
     }
     if(arr.length>0) {
@@ -37,7 +38,11 @@ export default function(data) {
         return null;
     }
 
-    function arrayFormat(data) {
+    /**
+     * 将参数模型中数组转换为对象,再格式式参数
+     * @param {*} data 参数
+     */
+    function arrayFormat(data={}) {
         let MvcParameterAdaptive = {};
         //验证是否为数组
         MvcParameterAdaptive.isArray = Function.isArray || function (o) {

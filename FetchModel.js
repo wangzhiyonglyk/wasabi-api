@@ -1,21 +1,29 @@
+
 /**
- * Created by zhiyongwang
- * date:2016-10-05 将原来pc端框架中fetch查询独立出来
- * desc:fetch 查询时的数据模型
+ * @author 王志勇
+ * @description date:2016-10-05 将原来pc端框架中fetch查询独立出来
+ * @description date:2018-01-05 调整参数顺序，去掉不必要的参数
  *
  */
 
- export default class FetchModel
+export default class FetchModel
 {
-    constructor(url,success,data=null,error=null,type="GET")
+    /**
+     * fetch 请求的参数模型
+     * @param {string} url  请求参数
+     * @param {object,FormData,string} data 请求的参数
+     * @param {string} type 请求类型
+     * @param {function} error 错误处理函数
+     * @param {string} contentType 请求的数据格式
+     * @param {function} headers 请求的头部信息
+     */
+    constructor(url,data=null,type="GET",error=null,contentType="application/x-www-form-urlencoded",headers=null)
     {
         this.url=url;
         this.data=data;
-        this.success=success;
-        this.error=error;
         this.type=type;//类型
-        this.contentType="application/x-www-form-urlencoded";//请求数据格式
-        this.credentials=false;//是否带上cookie
-        this.promise=false;//是否返回promise对象，如果为true,则fetchapi就可以使用then来处理异步
+        this.error=error;
+        this.contentType=contentType;
+        this.headers=headers;      
     }
 }
