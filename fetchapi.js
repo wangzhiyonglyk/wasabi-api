@@ -6,10 +6,10 @@
  * @description 因为fetch是系统的全局对象，命名不能叫fetch
  */
 import paramFormat from "./paramFormat";//格式化参数
-import fetchValidate from "./fetchValidate";//验证
+import validate from "./validate";//验证
 
 export  default async (fetchModel) => {
-    if (!fetchValidate(fetchModel)) {
+    if (!validate(fetchModel)) {
         return;//参数无效返回
     }
     //格式化参数
@@ -37,13 +37,13 @@ export  default async (fetchModel) => {
         }
     }
     try {
-      
+        //开始请求
         let response= await fetch(
             fetchModel.url,
             fetchBody
         );
-        if(response.ok){
-            return await response.json();  
+        if(response.ok){//处理成功
+            return await response.json(); //返回json格式的数据 
         }
         else {
             errorHandler(fetchModel,response.status,response.statusText?response.statusText:response.url+response.status);
