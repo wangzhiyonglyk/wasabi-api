@@ -6,7 +6,7 @@
  * @description 因为fetch是系统的全局对象，命名不能叫fetch
  */
 import paramFormat from "./paramFormat";//格式化参数
-import validate from "./validate";//验证
+import validate from "./fetchValidate";//验证
 
 export  default async (fetchModel) => {
     if (!validate(fetchModel)) {

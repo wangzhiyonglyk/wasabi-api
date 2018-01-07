@@ -135,11 +135,8 @@ export default function (settings) {
 			xhrRequest.addEventListener("loadend", loadEnd, false); //执行完成事件
 			xhrRequest.addEventListener("timeout", timeout, false); //超时事件
 			xhrRequest.addEventListener("error", error, false); //执行错误事件
-			if (typeof settings.progress === "function") { //没有设置时不要处理
-				xhrRequest.upload.addEventListener("progress", progress, false); //上传进度
-			} else {
+			xhrRequest.upload.addEventListener("progress", progress, false); //上传进度
 
-			}
 		} catch (e) { //说明不支持xhr2.0
 			console.log("浏览器不支持xhr2.0，已经转为1.0");
 			xhrRequest.onreadystatechange = function () {
@@ -164,6 +161,9 @@ export default function (settings) {
 			let percentComplete = Math.round(event.loaded * 100 / event.total);
 			if (typeof settings.progress === "function") {
 				settings.progress(percentComplete); //执行上传进度事件
+			}
+			else {
+
 			}
 		}
 	}
@@ -251,7 +251,7 @@ export default function (settings) {
 	 */
 
 	function timeout(event) {
-		console.log( "请求超时");
+		console.log("请求超时");
 	}
 
 	/**
@@ -262,9 +262,9 @@ export default function (settings) {
 	function error(event) {
 		let xhr = (event.target);
 		//暂时通过这种方式来判断404错误
-		let status=xhr.readyState==4&&xhr.status==0&&xhr.statusText==""?404:xhr.status;
-		let message=httpCode[status.toString()];
-		errorHandler(xhr, status, xhr.statusText?xhr.statusText:message);
+		let status = xhr.readyState == 4 && xhr.status == 0 && xhr.statusText == "" ? 404 : xhr.status;
+		let message = httpCode[status.toString()];
+		errorHandler(xhr, status, xhr.statusText ? xhr.statusText : message);
 	}
 
 	/**

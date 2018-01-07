@@ -30,11 +30,7 @@ export default  (fetchModel) =>{
         throw new Error("fetchModel的error[请求失败函数]必须为函数");
 
     }
-    if (fetchModel.data && fetchModel.data.constructor === FormData) { //如果是FormData不进行处理，相当于jquery fetchModel中contentType=false,processData=false,不设置Content-Type
-        fetchModel.contentType == false;
-    } else if (fetchModel.contentType == false) { //为false，是正确值
-
-    } else if (fetchModel.contentType == null || fetchModel.contentType == undefined || fetchModel.contentType == "") { //请求的数据格式,默认值
+    if (fetchModel.contentType == null || fetchModel.contentType == undefined || fetchModel.contentType == "") { //请求的数据格式,默认值
         //如果为false，是正确值
         fetchModel.contentType = "application/x-www-form-urlencoded"; //默认表单提交
     }

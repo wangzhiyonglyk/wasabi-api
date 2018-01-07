@@ -18,15 +18,21 @@
     if (!settings.dataType) { //回传的数据格式,默认为json
         settings.dataType = "json";
     }
+   
     if (!settings.type) { //请求方式
         settings.type = "GET";
+    }
+    if(typeof settings.type!=="string"){
+        throw new Error("ajax中的type参数必须是字符");
     }
     if (settings.async !== false) {
         settings.async = true; //默认为异步的
     }
     if (!settings.url) {
-        throw new Error("请求地址不能为空");
-
+        throw new Error("ajax请求地址不能为空");
+    }
+    if (typeof settings.url!=="string") {
+        throw new Error("ajax请求地址必须是字符串");
     }
     if (!settings.success) {
         throw new Error("ajax的success[请求成功函数]不能为空");
@@ -43,12 +49,8 @@
         throw new Error("ajax的progress[上传进度函数]必须为函数");
 
     }
-    if (settings.data && settings.data.constructor === FormData) { //如果是FormData不进行处理，相当于jquery ajax中contentType=false,processData=false,不设置Content-Type
-        settings.contentType == false;
-    } else if (settings.contentType == false) { //为false，是正确值
-
-    } else if (settings.contentType == null || settings.contentType == undefined || settings.contentType == "") { //请求的数据格式,默认值
-        //如果为false，是正确值
+    if (settings.contentType == null || settings.contentType == undefined || settings.contentType == "") { 
+        //请求的数据格式,默认值,如果为false，是正确值
         settings.contentType = "application/x-www-form-urlencoded"; //默认表单提交
     }
     if (settings.headers && !(settings.headers instanceof Object)) {
