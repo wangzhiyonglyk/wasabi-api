@@ -24,7 +24,6 @@ export default  (settings,secretKey="",secretType="HmacSHA1",type="fetch") =>{
     }
     try {
         //将所业务参数与签名参数合并
-       console.log("test",settings.data,settings.headers);
         if((settings.data&&typeof settings.data === "object"&&JSON.stringify(settings.data)!=="{}")||(settings.headers&&typeof settings.headers === "object"&&JSON.stringify(settings.headers)!=="{}"))
         {
             let keyObj = Object.assign(typeof settings.data === "object" ? settings.data : {}, typeof settings.headers === "object" ? settings.headers : {});//所以有参数
