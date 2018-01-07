@@ -1,6 +1,6 @@
 {
   "name": "wasabi-api",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "前后端通信api",
   "main": "index.js",
   "scripts": {

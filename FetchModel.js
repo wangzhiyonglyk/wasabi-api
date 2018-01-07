@@ -13,16 +13,14 @@ export default class FetchModel
      * @param {string} url  请求参数
      * @param {object,FormData,string} data 请求的参数
      * @param {string} type 请求类型
-     * @param {function} error 错误处理函数
      * @param {string} contentType 请求的数据格式
      * @param {function} headers 请求的头部信息
      */
-    constructor(url,data=null,type="GET",error=null,contentType="application/x-www-form-urlencoded",headers=null)
+    constructor(url,data=null,type="GET",contentType="application/x-www-form-urlencoded",headers=null)
     {
         this.url=url;
         this.data=data;
         this.type=type;//类型
-        this.error=error;
         this.contentType=contentType;
         this.headers=headers;      
     }

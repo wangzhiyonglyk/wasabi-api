@@ -8,7 +8,7 @@
 import paramFormat from "./paramFormat";//格式化参数
 import validate from "./fetchValidate";//验证
 
-export  default async (fetchModel) => {
+export default async (fetchModel) => {
     if (!validate(fetchModel)) {
         return;//参数无效返回
     }
@@ -38,33 +38,23 @@ export  default async (fetchModel) => {
     }
     try {
         //开始请求
-        let response= await fetch(
+        let response = await fetch(
             fetchModel.url,
             fetchBody
         );
-        if(response.ok){//处理成功
+
+        if (response.ok) {//处理成功
             return await response.json(); //返回json格式的数据 
         }
         else {
-            errorHandler(fetchModel,response.status,response.statusText?response.statusText:response.url+response.status);
+            return Promise.reject( "请求错误："+(response.statusText?response.statusText:"") + response.status);
         }
-        
-         
+
+
     }
     catch (e) {
-       
-        errorHandler(fetchModel, "4xx", e.message);
-    }
 
-
-    //错误处理函数
-    function errorHandler(fetchModel, errCode, message) {
-        if (typeof fetchModel.error === "function") {//设置了错误事件,
-            fetchModel.error(errCode, message);
-        }
-        else {
-           throw new Error(message);
-        }
+        return Promise.reject( "请求错误："+e.message);
     }
 
 }

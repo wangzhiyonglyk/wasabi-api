@@ -12,7 +12,6 @@ export default  (fetchModel) =>{
     }
     if (fetchModel.data instanceof Array) {
         throw new Error("fetchModel的data参数必须是字符,空值,对象,FormData,不可以为数组");
-
     }
     if(typeof fetchModel.type!=="string"){
         throw new Error("fetchModel中的type参数必须是字符");
