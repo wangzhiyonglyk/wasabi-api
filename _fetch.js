@@ -4,6 +4,7 @@
  * @description date:2016-10-05 将原来pc端框架中fetch查询独立出来
  * @description date:2018-01-05 修复bug,调整逻辑
  * @description 因为fetch是系统的全局对象，命名不能叫fetch
+ * @description date:2018-01-08 修复bug,contentType字段写错了
  */
 import paramFormat from "./paramFormat";//格式化参数
 import validate from "./fetchValidate";//验证
@@ -17,7 +18,7 @@ export default async (fetchModel) => {
 
     //设置头部信息
     fetchModel.headers = fetchModel.headers ? fetchModel.headers : {};
-    fetchModel.contentType ? fetchModel.headers.contentType = fetchModel.contentType : null;
+    fetchModel.contentType ? fetchModel.headers["content-Type"] = fetchModel.contentType : null;
     let fetchBody = {
         method: fetchModel.type,//请求类型
         headers: fetchModel.headers,
