@@ -69,7 +69,7 @@ export default (settings = {}, secretKey = "", secretType = "HmacSHA256", ignore
             settings.headers.sign = sign;
 
         }
-        console.log(settings);
+      
         return type == "fetch" ? _fetch(settings) : ajax(settings);//开始请求
     }
     catch (e) {

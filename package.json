@@ -1,12 +1,12 @@
 {
   "name": "wasabi-api",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "description": "前后端通信api",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "wangzhiyong",
+  "author": "王志勇",
   "license": "ISC",
   "devDependencies": {},
   "dependencies": {
