@@ -18,7 +18,7 @@ export default async (fetchModel) => {
 
     //设置头部信息
     fetchModel.headers = fetchModel.headers ? fetchModel.headers : {};
-    fetchModel.contentType ? fetchModel.headers["content-Type"] = fetchModel.contentType : null;
+    fetchModel.contentType ? fetchModel.headers["Content-Type"] = fetchModel.contentType : null;
     let fetchBody = {
         method: fetchModel.type,//请求类型
         headers: fetchModel.headers,

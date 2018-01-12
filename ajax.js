@@ -99,7 +99,7 @@ export default function (settings) {
 		//设置请求格式
 		if (settings.contentType == false) { //为false,不设置Content-Type
 		} else {
-			xhrRequest.setRequestHeader("content-Type", settings.contentType); //请求的数据格式,
+			xhrRequest.setRequestHeader("Content-Type", settings.contentType); //请求的数据格式,
 		}
 		//设置返回格式
 		try {
