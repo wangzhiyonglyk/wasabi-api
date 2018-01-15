@@ -5,10 +5,11 @@
  * @description date:2018-01-05 修复bug,调整逻辑
  * @description 因为fetch是系统的全局对象，命名不能叫fetch
  * @description date:2018-01-08 修复bug,contentType字段写错了
+ *  @description date:2018-01-15 修复bug，增加返回headers
  */
 import paramFormat from "./paramFormat";//格式化参数
 import validate from "./fetchValidate";//验证
-
+import help from "./help";
 export default async (fetchModel) => {
     if (!validate(fetchModel)) {
         return;//参数无效返回
@@ -43,9 +44,14 @@ export default async (fetchModel) => {
             fetchModel.url,
             fetchBody
         );
-
+        
         if (response.ok) {//处理成功
-            return await response.json(); //返回json格式的数据 
+            let result= await response.json();
+            if(!help.isEmptyObject(result)&&!help.isEmptyObject(response.headers))
+            {//不为空对象，拿到返回的头部信息
+                result.headers=response.headers;
+            }
+          return  Promise.resolve( result); //返回json格式的数据 
         }
         else {
             return Promise.reject( "请求错误："+(response.statusText?response.statusText:"") + response.status);

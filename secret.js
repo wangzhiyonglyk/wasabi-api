@@ -10,13 +10,15 @@ edit  2017-11-26
  * @description date:2017-07-12 
  * @description edit  2017-11-26 修复bug,调整逻辑
  * @description date 2017-01-05 因为fetch是系统的全局对象，命名不能叫fetch
- * @description date:2018-01-08 修复bug,增加ignore参数，调整加密类型
+ * @description date:2018-01-08 修复bug,增加ignore参数，调整加密类型 
+ *  * @description date:2018-01-15 修复bug，增加返回headers
  */
 import crypto from "crypto-js";
 import validate from "./validate";
 import fetchValidate from "./fetchValidate";
 import ajax from "./ajax";
 import _fetch from "./_fetch";
+import help from "./help";
 
 /**
  * 加密请求
@@ -42,9 +44,10 @@ export default (settings = {}, secretKey = "", secretType = "HmacSHA256", ignore
     }
     try {
         //将所业务参数与签名参数合并
-        if ((settings.data && typeof settings.data === "object" && JSON.stringify(settings.data) !== "{}") || (settings.headers && typeof settings.headers === "object" && JSON.stringify(settings.headers) !== "{}")) {
+        if (!help.isEmptyObject(settings.data) && !help.isEmptyObject(settings.headers)) {
+            //如果 头部与body参数都不是空，才加密
             //拿到头部与body中的参数
-            let keyObj = Object.assign({}, typeof settings.data === "object" ? settings.data : {}, typeof settings.headers === "object" ? settings.headers : {});//所以有参数
+            let keyObj = Object.assign({},  settings.data ,  settings.headers );//所以有参数
             let keyNameArr = [];//所有参数名
             for (let key in keyObj) {
                 if (ignore.indexOf(key)<=-1) {//非忽略的参数
@@ -56,9 +59,10 @@ export default (settings = {}, secretKey = "", secretType = "HmacSHA256", ignore
             先拼接参数字符串,然后再按照加密方式加密后转成base64,得到签名sign字段
             */
             let urlstr = keyNameArr.map((key, index) => {
-                //将参数值格式化
+                //将参数值格式化，如果是值为对象则转为字符串
                 let value = keyObj[key] ? typeof keyObj[key] === "object" ? JSON.stringify(keyObj[key]) : keyObj[key] : "";
-                return key + "=" + value;
+                return  key + "=" + value;//值为空则加密
+             
             }).join("&");
 
             let sign = (secretType != "MD5" && secretType != "SHA1" && secretType != "SHA256") ? crypto[secretType](urlstr, secretKey).toString(crypto.enc.Base64) : crypto[secretType](urlstr).toString(crypto.enc.Base64);

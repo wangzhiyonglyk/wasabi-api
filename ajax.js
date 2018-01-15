@@ -12,6 +12,7 @@
  * date:2017-07-07  完善一些注释，完善一些逻辑
  * date 2017-07-11 去掉一个错误的引用
  * date:2017-07-13 完善语法
+ * * @description date:2018-01-15 修复bug，增加返回headers
  * 使用方法
  *     ajax({
        url:"http://localhost:7499/Admin/Add",
@@ -176,6 +177,7 @@ export default function (settings) {
 	function load(event) {
 		let xhr = (event.target);
 		if (xhr.readyState == 4 && ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304)) { //请求成功
+		let headers=	xhrRequest.getAllResponseHeaders();//后台的头部信息
 			if (settings.dataType == "json") {
 				//json格式请求
 				let result = xhr.response ? xhr.response : xhr.responseText; //1.0
@@ -185,11 +187,8 @@ export default function (settings) {
 					}
 					if (result.success != null && result.success != undefined) { //后台传了这个字段
 						if (result.success) {
-							if (settings.success && typeof settings.success === "function") {
-								settings.success(result); //执行成功
-							} else {
-								throw new Error("您没的设置请求成功后的处理函数-success");
-							}
+								settings.success(result,headers); //执行成功
+							
 						} else {
 							if (result.message) { //有标准的错误信息
 								errorHandler(result, result.errCode ? result.errCode : "801", result.message);
@@ -199,12 +198,7 @@ export default function (settings) {
 							}
 						}
 					} else { //后台没有传这个字段
-						if (settings.success && typeof settings.success === "function") {
-							settings.success(result); //直接认为是成功的
-						} else {
-							throw new Error("您没的设置请求成功后的处理函数-success");
-						}
-
+							settings.success(result,headers); //直接认为是成功的
 					}
 				} else {
 					errorHandler(xhr, "802", "服务器返回的数据格式不正确");
