@@ -7,7 +7,7 @@ export default {
      * 是否是空对象
      */
     isEmptyObject:function(obj){
-        if ((obj && typeof obj === "object" && JSON.stringify(obj) !== "{}") || (settings.headers && typeof settings.headers === "object" && JSON.stringify(settings.headers) !== "{}")) {
+        if ((obj && typeof obj === "object" && JSON.stringify(obj) !== "{}") ) {
             return true;
         }
         else if(!obj)
