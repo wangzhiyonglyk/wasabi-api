@@ -6,6 +6,7 @@
  * @description 因为fetch是系统的全局对象，命名不能叫fetch
  * @description date:2018-01-08 修复bug,contentType字段写错了
  *  @description date:2018-01-15 修复bug，增加返回headers
+ *  @description date:2018-01-16 输出日志，增加请求格式日志
  */
 import paramFormat from "./paramFormat";//格式化参数
 import validate from "./fetchValidate";//验证
@@ -39,6 +40,8 @@ export default async (fetchModel) => {
         }
     }
     try {
+        console.log("fetch请求开始，地址:",fetchModel.url);
+        console.log("fetch请求开始，参数体:",fetchBody);
         //开始请求
         let response = await fetch(
             fetchModel.url,

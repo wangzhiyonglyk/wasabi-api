@@ -128,8 +128,6 @@ export default function (settings) {
 			}
 
 		}
-
-
 		try {
 			//支持xhr2.0
 			xhrRequest.addEventListener("load", load, false); ///执行成功事件
