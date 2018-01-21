@@ -12,6 +12,7 @@ edit  2017-11-26
  * @description date 2017-01-05 因为fetch是系统的全局对象，命名不能叫fetch
  * @description date:2018-01-08 修复bug,增加ignore参数，调整加密类型 
  *  * @description date:2018-01-15 修复bug，增加返回headers
+ *  * @description date:2018-01-21 修复bug，header与body都为空才不加密，其他情况都要加密
  */
 import crypto from "crypto-js";
 import validate from "./validate";
@@ -44,10 +45,11 @@ export default (settings = {}, secretKey = "", secretType = "HmacSHA256", ignore
     }
     try {
         //将所业务参数与签名参数合并
-        if (!help.isEmptyObject(settings.data) && !help.isEmptyObject(settings.headers)) {
-            //如果 头部与body参数都不是空，才加密
+        let keyObj = Object.assign({},  settings.data ,  settings.headers );//所以有参数
+        if (!help.isEmptyObject(keyObj)) {
+            //如果 头部与body参数都不是空才不加密
             //拿到头部与body中的参数
-            let keyObj = Object.assign({},  settings.data ,  settings.headers );//所以有参数
+          
             let keyNameArr = [];//所有参数名
             for (let key in keyObj) {
                 if (ignore.indexOf(key)<=-1) {//非忽略的参数
