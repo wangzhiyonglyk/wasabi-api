@@ -18,7 +18,7 @@ import crypto from "crypto-js";
 import validate from "./validate";
 import fetchValidate from "./fetchValidate";
 import ajax from "./ajax";
-import _fetch from "./_fetch";
+import _fetch from "./fetch";
 import help from "./help";
 
 /**
