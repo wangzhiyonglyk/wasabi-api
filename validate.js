@@ -4,6 +4,7 @@
  * 验证
  * @param {{}} settings ajax请求的配置参数
  * @returns object
+ *  * date:2020-02-29 修复contentType为false时，要用===判断，否则与""相等了
  */
 
  export default function validate(settings) {
@@ -49,7 +50,7 @@
         throw new Error("ajax的progress[上传进度函数]必须为函数");
 
     }
-    if (settings.contentType == null || settings.contentType == undefined || settings.contentType == "") { 
+    if (settings.contentType === null || settings.contentType === undefined || settings.contentType ==="") { 
         //请求的数据格式,默认值,如果为false，是正确值
         settings.contentType = "application/x-www-form-urlencoded"; //默认表单提交
     }
