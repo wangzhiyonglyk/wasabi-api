@@ -12,15 +12,20 @@
  * date:2017-07-07  完善一些注释，完善一些逻辑
  * date 2017-07-11 去掉一个错误的引用
  * date:2017-07-13 完善语法
- * * @description date:2018-01-15 修复bug，增加返回headers
+ * * @description date:2018-01-15 修复bug，增加返回header
+ * date:2020-04-27 desc 修改错误方法参数，只回传错误消息
+ *date:2020-09-22 desc 还是超时bug
  * 使用方法
  *     ajax({
        url:"http://localhost:7499/Admin/Add",
         type:"post",
         data:{name:"test",password:"1111",nickname:"dddd"},
-        success:function (result) {
+        success: (result)=>{
         console.log(result);
-        },
+		},
+		error:(meesage)=>{
+
+		}
     })
  */
 
@@ -94,7 +99,7 @@ export default function (settings) {
 		try {
 			xhrRequest.open(settings.type, settings.url, settings.async);
 		} catch (e) { //说明不支持跨域
-			errorHandler(xhrRequest, 803, "[IE,360]自动阻止了跨域:" + e.message);
+			errorHandler(803, "[IE,360]自动阻止了跨域:" + e.message);
 		}
 
 		//设置请求格式
@@ -116,6 +121,7 @@ export default function (settings) {
 		if (!settings.timeout) { //设置超时时间
 			xhrRequest.timeout = settings.timeout; //超时时间
 		}
+	 
 		//设置headers
 		if (settings.headers instanceof Object) {
 			try {
@@ -183,37 +189,52 @@ export default function (settings) {
 					if (typeof result == "string") { //IE8.360 中没有对结果进行JSON化
 						result = JSON.parse(result);
 					}
+					//下面是判断常见的后端请求数据格式		
 					if (result.success != null && result.success != undefined) { //后台传了这个字段
 						if (result.success) {
+								settings.success(result,header); //执行成功
+							
+						} else {//请求失败
+							if (result.message) { //有标准的错误信息
+								errorHandler( result.statusCode||result.code|| 801, result.message);
+							} else {
+								errorHandler( 801, "服务器正常响应，后台业务代码的逻辑报错");
+
+							}
+						}
+					}
+					else if(result.statusCode||result.code){
+								if (result.statusCode==200||result.code==2000) {
 								settings.success(result,headers); //执行成功
 							
 						} else {
 							if (result.message) { //有标准的错误信息
-								errorHandler(result, result.errCode ? result.errCode : "801", result.message);
+								errorHandler( result.statusCode||result.code|| 801, result.message);
 							} else {
-								errorHandler(result, "801", "服务器正常响应，后台业务代码的逻辑报错");
+								errorHandler( 801, "服务器正常响应，后台业务代码的逻辑报错");
 
 							}
 						}
-					} else { //后台没有传这个字段
+					}
+					 else { //后台没有传这个字段
 							settings.success(result,headers); //直接认为是成功的
 					}
 				} else {
-					errorHandler(xhr, "802", "服务器返回的数据格式不正确");
+					errorHandler( 802, "服务器返回的数据格式不正确");
 				}
 			} else if (settings.dataType == "blob" || settings.dataType == "arrayBuffer") { //二进制数据
-				settings.success(xhr.response);
+				settings.success(xhr.response,headers);
 			} else { //其他格式
 				try {
-					settings.success(xhr.responseText);
+					settings.success(xhr.responseText,headers);
 				} catch (e) { //如果没有responseText对象,不能通过if判断,原因不详
-					settings.success(xhr.response);
+					settings.success(xhr.response,headers);
 				}
 
 			}
 		} else {
 			//是4xx错误时属于客户端的错误，并不属于Network error,不会触发error事件
-			errorHandler(xhr, xhr.status, xhr.statusText);
+			errorHandler( xhr.status, xhr.statusText);
 		}
 
 
@@ -230,7 +251,7 @@ export default function (settings) {
 				//304客户端已经执行了GET，但文件未变化,认为也是成功的
 				settings.complete(xhr, "success");
 			} else if (xhr.readyState == 4 && xhr.status == 0) { //本地响应成功，TODO 暂时不知道如何处理
-				settings.complete(xhr, "error");
+				settings.complete(xhr, "success");
 			} else { //错误
 				settings.complete(xhr, "error");
 			}
@@ -243,7 +264,7 @@ export default function (settings) {
 	 */
 
 	function timeout(event) {
-		console.log("请求超时");
+		errorHandler(804,"请求超时");
 	}
 
 	/**
@@ -256,7 +277,7 @@ export default function (settings) {
 		//暂时通过这种方式来判断404错误
 		let status = xhr.readyState == 4 && xhr.status == 0 && xhr.statusText == "" ? 404 : xhr.status;
 		let message = httpCode[status.toString()];
-		errorHandler(xhr, status, xhr.statusText ? xhr.statusText : message);
+		errorHandler( status, xhr.statusText ? xhr.statusText : message);
 	}
 
 	/**
@@ -266,15 +287,9 @@ export default function (settings) {
 	 * @param message 信息提示
 	 */
 
-	function errorHandler(xhr, errCode, message) {
-		if (errCode >= 300 && errCode < 600) {
-			//是http错误		
-			//设置了错误事件
-			typeof settings.error === "function" ? settings.error(xhr, errCode, httpCode[errCode.toString()]) : null;
-		} else {
-			//设置了错误事件,
-			typeof settings.error === "function" ? settings.error(xhr, errCode, message) : null;
-		}
+	function errorHandler(errCode, message) {
+		console.error(message);
+		typeof settings.error === "function" ? settings.error( message,errCode) : void(0);
 
 	}
 }

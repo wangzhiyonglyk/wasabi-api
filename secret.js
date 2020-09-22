@@ -18,7 +18,7 @@ import crypto from "crypto-js";
 import validate from "./validate";
 import fetchValidate from "./fetchValidate";
 import ajax from "./ajax";
-import _fetch from "./fetch";
+import fetch from "./fetch";
 import help from "./help";
 
 /**
@@ -29,7 +29,7 @@ import help from "./help";
  *@param {[]} ignore  不参与加密的字段
  *@param {string} type  请求类型，ajax,fetch
  */
-export default (settings = {}, secretKey = "", secretType = "HmacSHA256", ignore =[], type = "fetch") => {
+export default (settings = {}, secretKey = "", secretType = "HmacSHA256", ignore ={}, type = "fetch") => {
     //先验证字符有效性
     if (type == "fetch" ? !fetchValidate(settings) : !validate(settings)) {
         return;
@@ -40,9 +40,7 @@ export default (settings = {}, secretKey = "", secretType = "HmacSHA256", ignore
     if (secretType != "MD5" && secretType != "SHA1" && secretType != "SHA256" && !secretKey) {
         throw new Error("非MD5,SHA1,SHA256,密钥secretKey不能为空");
     }
-    if (!ignore) {//如果设置为空值，做兼容处理
-        ignore = {};//
-    }
+    ignore = ignore||{};//如果没有设置，设置为空对象
     try {
         //将所业务参数与签名参数合并
         let keyObj = Object.assign({},  settings.data ,  settings.headers );//所以有参数
@@ -76,7 +74,7 @@ export default (settings = {}, secretKey = "", secretType = "HmacSHA256", ignore
 
         }
        
-        return type == "fetch" ? _fetch(settings) : ajax(settings);//开始请求
+        return type == "fetch" ? fetch(settings) : ajax(settings);//开始请求
     }
     catch (e) {
         throw new Error(e.message);

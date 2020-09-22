@@ -1,6 +1,6 @@
 {
   "name": "wasabi-api",
-  "version": "0.8.2",
+  "version": "0.8.4",
   "description": "前后端通信api",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,6 @@
   "devDependencies": {},
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "crypto-js": "^3.1.9-1"
+    "crypto-js": "^3.3.0"
   }
 }

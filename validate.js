@@ -5,6 +5,7 @@
  * @param {{}} settings ajax请求的配置参数
  * @returns object
  *  * date:2020-02-29 修复contentType为false时，要用===判断，否则与""相等了
+  date:2020-09-22 将date
  */
 
  export default function validate(settings) {
