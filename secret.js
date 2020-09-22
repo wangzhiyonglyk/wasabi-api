@@ -2,6 +2,7 @@
 add by wangzhiyong
 date:2017-07-12
 edit  2017-11-26
+edit 2020-09-22 修复加密bug
  ajax加密请求方法
 */
 /**
