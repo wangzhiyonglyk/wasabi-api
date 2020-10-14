@@ -192,7 +192,7 @@ export default function (settings) {
 					//下面是判断常见的后端请求数据格式		
 					if (result.success != null && result.success != undefined) { //后台传了这个字段
 						if (result.success) {
-								settings.success(result,header); //执行成功
+								settings.success(result,headers); //执行成功
 							
 						} else {//请求失败
 							if (result.message) { //有标准的错误信息
