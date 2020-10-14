@@ -127,7 +127,7 @@ export default function (settings) {
 			try {
 				for (let prop in settings.headers) {
 
-					xhrRequest.setRequestHeader(prop, settings.headers[prop]);
+					xhrRequest.setRequestHeader(prop, encodeURI(settings.headers[prop]));//防止无法传输中文
 				}
 			} catch (e) {
 				throw new Error(e.message);

@@ -20,6 +20,11 @@ export default async (fetchModel) => {
 
     //设置头部信息
     fetchModel.headers = fetchModel.headers ? fetchModel.headers : {};
+    if(fetchModel.headers instanceof Object){
+        for(let prop in fetchModel.headers){
+            fetchModel.headers[prop]=encodeURI(fetchModel.headers[prop]);//防止无法传输中文
+        }
+    }
     fetchModel.contentType ? fetchModel.headers["Content-Type"] = fetchModel.contentType : null;
     let fetchBody = {
         method: fetchModel.type,//请求类型
