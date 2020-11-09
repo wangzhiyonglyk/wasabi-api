@@ -15,6 +15,7 @@
  * * @description date:2018-01-15 修复bug，增加返回header
  * date:2020-04-27 desc 修改错误方法参数，只回传错误消息
  *date:2020-09-22 desc 还是超时bug
+ *date:2020-11-09 desc 修复超过的bug,及同步bug
  * 使用方法
  *     ajax({
        url:"http://localhost:7499/Admin/Add",
@@ -118,7 +119,7 @@ export default function (settings) {
 		} catch (e) {
 			console.log("该浏览器[IE，360]不支持withCredentials的设置，跳过");
 		}
-		if (!settings.timeout) { //设置超时时间
+		if (settings.timeout&&settings.async!==false) { //设置超时时间
 			xhrRequest.timeout = settings.timeout; //超时时间
 		}
 	 
