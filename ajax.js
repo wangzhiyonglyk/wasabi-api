@@ -16,18 +16,20 @@
  * date:2020-04-27 desc 修改错误方法参数，只回传错误消息
  *date:2020-09-22 desc 还是超时bug
  *date:2020-11-09 desc 修复超过的bug,及同步bug
+date 2021-01-27 去掉ajax中的cookie，保证安全
+date:2021-03-27 修复状态值的bug
  * 使用方法
  *     ajax({
-       url:"http://localhost:7499/Admin/Add",
-        type:"post",
-        data:{name:"test",password:"1111",nickname:"dddd"},
-        success: (result)=>{
-        console.log(result);
+	   url:"http://localhost:7499/Admin/Add",
+		type:"post",
+		data:{name:"test",password:"1111",nickname:"dddd"},
+		success: (result)=>{
+		console.log(result);
 		},
 		error:(meesage)=>{
 
 		}
-    })
+	})
  */
 
 import httpCode from "./httpCode.js";
@@ -114,15 +116,16 @@ export default function (settings) {
 		} catch (e) {
 			console.log("该浏览器[IE，360]不支持responseType的设置，跳过");
 		}
-		try {
-			xhrRequest.withCredentials = settings.cors ? true : false; //表明在进行跨站(cross-site)的访问控制(Access-Control)请求时，是否使用认证信息(例如cookie或授权的header)。 默认为 false。
-		} catch (e) {
-			console.log("该浏览器[IE，360]不支持withCredentials的设置，跳过");
-		}
-		if (settings.timeout&&settings.async!==false) { //设置超时时间
+		//todo 为了安全起见先去掉再说
+		// try {
+		// 	xhrRequest.withCredentials = settings.cors ? true : false; //表明在进行跨站(cross-site)的访问控制(Access-Control)请求时，是否使用认证信息(例如cookie或授权的header)。 默认为 false。
+		// } catch (e) {
+		// 	console.log("该浏览器[IE，360]不支持withCredentials的设置，跳过");
+		// }
+		if (settings.timeout && settings.async !== false) { //设置超时时间
 			xhrRequest.timeout = settings.timeout; //超时时间
 		}
-	 
+
 		//设置headers
 		if (settings.headers instanceof Object) {
 			try {
@@ -182,7 +185,7 @@ export default function (settings) {
 	function load(event) {
 		let xhr = (event.target);
 		if (xhr.readyState == 4 && ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304)) { //请求成功
-		let headers=	xhrRequest.getAllResponseHeaders();//后台的头部信息
+			let headers = xhrRequest.getAllResponseHeaders();//后台的头部信息
 			if (settings.dataType == "json") {
 				//json格式请求
 				let result = xhr.response ? xhr.response : xhr.responseText; //1.0
@@ -193,49 +196,50 @@ export default function (settings) {
 					//下面是判断常见的后端请求数据格式		
 					if (result.success != null && result.success != undefined) { //后台传了这个字段
 						if (result.success) {
-								settings.success(result,headers); //执行成功
-							
+							settings.success(result, headers); //执行成功
+
 						} else {//请求失败
 							if (result.message) { //有标准的错误信息
-								errorHandler( result.statusCode||result.code|| 801, result.message);
+								errorHandler(result.statusCode || result.code || 801, result.message);
 							} else {
-								errorHandler( 801, "服务器正常响应，后台业务代码的逻辑报错");
+								errorHandler(801, "服务器正常响应，后台业务代码的逻辑报错");
 
 							}
 						}
 					}
-					else if(result.statusCode||result.code){
-								if (result.statusCode==200||result.code==2000) {
-								settings.success(result,headers); //执行成功
-							
+					else if (result.statusCode || result.code||result.state) {
+
+						if (result.statusCode == 200 || result.code == 200||result.code==1||result.statusCode==1||result.state==1||result.state==200) {
+							settings.success(result, headers); //执行成功
+
 						} else {
 							if (result.message) { //有标准的错误信息
-								errorHandler( result.statusCode||result.code|| 801, result.message);
+								errorHandler(result.statusCode || result.code || 801, result.message);
 							} else {
-								errorHandler( 801, "服务器正常响应，后台业务代码的逻辑报错");
+								errorHandler(801, "服务器正常响应，后台业务代码的逻辑报错");
 
 							}
 						}
 					}
-					 else { //后台没有传这个字段
-							settings.success(result,headers); //直接认为是成功的
+					else { //后台没有传这个字段
+						settings.success(result, headers); //直接认为是成功的
 					}
 				} else {
-					errorHandler( 802, "服务器返回的数据格式不正确");
+					errorHandler(802, "服务器返回的数据格式不正确");
 				}
 			} else if (settings.dataType == "blob" || settings.dataType == "arrayBuffer") { //二进制数据
-				settings.success(xhr.response,headers);
+				settings.success(xhr.response, headers);
 			} else { //其他格式
 				try {
-					settings.success(xhr.responseText,headers);
+					settings.success(xhr.responseText, headers);
 				} catch (e) { //如果没有responseText对象,不能通过if判断,原因不详
-					settings.success(xhr.response,headers);
+					settings.success(xhr.response, headers);
 				}
 
 			}
 		} else {
 			//是4xx错误时属于客户端的错误，并不属于Network error,不会触发error事件
-			errorHandler( xhr.status, xhr.statusText);
+			errorHandler(xhr.status, xhr.statusText);
 		}
 
 
@@ -265,7 +269,7 @@ export default function (settings) {
 	 */
 
 	function timeout(event) {
-		errorHandler(804,"请求超时");
+		errorHandler(804, "请求超时");
 	}
 
 	/**
@@ -278,7 +282,7 @@ export default function (settings) {
 		//暂时通过这种方式来判断404错误
 		let status = xhr.readyState == 4 && xhr.status == 0 && xhr.statusText == "" ? 404 : xhr.status;
 		let message = httpCode[status.toString()];
-		errorHandler( status, xhr.statusText ? xhr.statusText : message);
+		errorHandler(status, xhr.statusText ? xhr.statusText : message);
 	}
 
 	/**
@@ -290,7 +294,7 @@ export default function (settings) {
 
 	function errorHandler(errCode, message) {
 		console.error(message);
-		typeof settings.error === "function" ? settings.error( message,errCode) : void(0);
+		typeof settings.error === "function" ? settings.error(message, errCode) : void (0);
 
 	}
 }
