@@ -194,7 +194,10 @@ export default function (settings) {
 						result = JSON.parse(result);
 					}
 					//下面是判断常见的后端请求数据格式		
-					if (result.success != null && result.success != undefined) { //后台传了这个字段
+					if (result.success != null && result.success != undefined) {
+						/**
+						 * 后端通过success参数判断执行是否成功，没有考虑登陆失效后自动跳转的情况
+						 */
 						if (result.success) {
 							settings.success(result, headers); //执行成功
 
@@ -207,9 +210,20 @@ export default function (settings) {
 							}
 						}
 					}
-					else if (result.statusCode || result.code||result.state) {
+					else if (result.statusCode || result.code || result.status || result.state) {
+						/**
+						 * 后端通过statusCode【状态码】参数判断执行是否成功，考虑了登陆失效后自动跳转的情况，
+						 * 通常是通过-1来判断，此处不作处理，不够通用
+						 * 
+						 */
 
-						if (result.statusCode == 200 || result.code == 200||result.code==1||result.statusCode==1||result.state==1||result.state==200) {
+						/**
+						 * 将几个常见的状态码情况统一为statusCode,因为code这个参数在小程序中请求时，代表http的状态码了
+						 */
+
+						result.statusCode = result.statusCode || result.code || result.status || result.state;
+						result.statusCode = result.statusCode * 1;//转成数字型
+						if (result.statusCode == 200 || result.statusCode == 1) {
 							settings.success(result, headers); //执行成功
 
 						} else {
@@ -221,7 +235,10 @@ export default function (settings) {
 							}
 						}
 					}
-					else { //后台没有传这个字段
+					else {
+						/**
+						 * 其他后端接口模式，不作为处理，直接认为成功了
+						 */
 						settings.success(result, headers); //直接认为是成功的
 					}
 				} else {

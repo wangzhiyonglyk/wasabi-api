@@ -1,13 +1,12 @@
 /**
  * @author 王志勇
- * @description 参数格式化
+ * @description 将参数中的数组转为后台可识别的格式
  * @description date:2016-10-05 将格式化方法独立出来，尤其是处理数组问题
  * @description date:2018-01-05 修正，
+ * * @description date:2021-04-10 修正说明
  * @param {*} data 参数
  */
 export default (data)=> {
-    //将参数中的数组转为后台可识别的格式
-
     if(!data)
     {//空直接返回
         return data;
@@ -39,7 +38,7 @@ export default (data)=> {
     }
 
     /**
-     * 将参数模型中数组转换为对象,再格式式参数
+     * 将参数模型中某个参数是数组时转换为对象,再格式式化参数，这样子传入后台mvc请求时能自动转为模型
      * @param {*} data 参数
      */
     function arrayFormat(data={}) {

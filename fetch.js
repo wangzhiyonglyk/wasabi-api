@@ -7,6 +7,8 @@
  * @description date:2018-01-08 修复bug,contentType字段写错了
  *  @description date:2018-01-15 修复bug，增加返回headers
  *  @description date:2018-01-16 输出日志，增加请求格式日志
+ * 2021-04-10
+ * 目前只支持json数据查询
  */
 import paramFormat from "./paramFormat";//格式化参数
 import validate from "./fetchValidate";//验证
@@ -25,6 +27,7 @@ export default async (fetchModel) => {
             fetchModel.headers[prop]=encodeURI(fetchModel.headers[prop]);//防止无法传输中文
         }
     }
+    //如何设置传输类型
     fetchModel.contentType ? fetchModel.headers["Content-Type"] = fetchModel.contentType : null;
     let fetchBody = {
         method: fetchModel.type,//请求类型

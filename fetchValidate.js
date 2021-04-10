@@ -1,9 +1,10 @@
 
 
 /**
- * 验证
+ * fetch参数验证
  * @param {{}} fetchModel fetch 请求的配置参数
  * @returns bool
+ * edit 2021-04-10 增加处理json格式时的参数
  */
 export default  (fetchModel) =>{
     if (!fetchModel || !(fetchModel instanceof Object)) {
@@ -36,6 +37,13 @@ export default  (fetchModel) =>{
     if (fetchModel.headers && !(fetchModel.headers instanceof Object)) {
         throw new Error("fetchModel中的headers要么为空，要么为对象");
 
+    }
+    if(fetchModel.contentType.indexOf("json")>-1)
+    {//json格式
+       if(fetchModel.data&& typeof fetchModel.data =="object"&& fetchModel.data instanceof Object &&!(fetchModel.data instanceof FormData)){//
+        //不为空，是对象，但不是FormData
+        fetchModel.data=JSON.stringify(fetchModel.data);
+       }
     }
 
   return true;

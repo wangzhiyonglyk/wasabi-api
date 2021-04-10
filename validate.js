@@ -1,14 +1,15 @@
 
 
 /**
- * 验证
+ * ajax参数验证
  * @param {{}} settings ajax请求的配置参数
- * @returns object
+ * @returns bool
  *  * date:2020-02-29 修复contentType为false时，要用===判断，否则与""相等了
   date:2020-09-22 将date
+  * edit 2021-04-10 增加处理json格式时的参数
  */
 
- export default function validate(settings) {
+export default function validate(settings) {
     if (!settings || !(settings instanceof Object)) {
         throw new Error("ajax配置无效,不能为空,必须为对象");
 
@@ -20,11 +21,11 @@
     if (!settings.dataType) { //回传的数据格式,默认为json
         settings.dataType = "json";
     }
-   
+
     if (!settings.type) { //请求方式
         settings.type = "GET";
     }
-    if(typeof settings.type!=="string"){
+    if (typeof settings.type !== "string") {
         throw new Error("ajax中的type参数必须是字符");
     }
     if (settings.async !== false) {
@@ -33,7 +34,7 @@
     if (!settings.url) {
         throw new Error("ajax请求地址不能为空");
     }
-    if (typeof settings.url!=="string") {
+    if (typeof settings.url !== "string") {
         throw new Error("ajax请求地址必须是字符串");
     }
     if (!settings.success) {
@@ -51,7 +52,7 @@
         throw new Error("ajax的progress[上传进度函数]必须为函数");
 
     }
-    if (settings.contentType === null || settings.contentType === undefined || settings.contentType ==="") { 
+    if (settings.contentType === null || settings.contentType === undefined || settings.contentType === "") {
         //请求的数据格式,默认值,如果为false，是正确值
         settings.contentType = "application/x-www-form-urlencoded"; //默认表单提交
     }
@@ -59,7 +60,13 @@
         throw new Error("headers要么为空，要么为对象");
 
     }
+    if (settings.contentType.indexOf("json") > -1) {//json格式
+        if (settings.data && typeof settings.data == "object" && settings.data instanceof Object && !(settings.data instanceof FormData)) {//
+            //不为空，是对象，但不是FormData
+            settings.data = JSON.stringify(settings.data);
+        }
+    }
 
-  return true;
+    return true;
 }
 
