@@ -7,6 +7,7 @@
  *  * date:2020-02-29 修复contentType为false时，要用===判断，否则与""相等了
   date:2020-09-22 将date
   * edit 2021-04-10 增加处理json格式时的参数
+  edit 2021-05-18 修复contentType的bug
  */
 
 export default function validate(settings) {
@@ -60,7 +61,7 @@ export default function validate(settings) {
         throw new Error("headers要么为空，要么为对象");
 
     }
-    if (settings.contentType.indexOf("json") > -1) {//json格式
+    if (settings.contentType&&settings.contentType.indexOf("json") > -1) {//json格式
         if (settings.data && typeof settings.data == "object" && settings.data instanceof Object && !(settings.data instanceof FormData)) {//
             //不为空，是对象，但不是FormData
             settings.data = JSON.stringify(settings.data);
